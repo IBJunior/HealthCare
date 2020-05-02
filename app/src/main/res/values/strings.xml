@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Health Care</string>
+
+    <string-array name="situations">
+
+        <item>Marié(e)</item>
+        <item>Célibataire</item>
+        <item>Veuf-ve</item>
+    </string-array>
+
+    <string-array name="specialite">
+
+        <item>Généraliste</item>
+        <item>Dentiste</item>
+        <item>Cardiologue</item>
+        <item> Gynécologue</item>
+    </string-array>
 </resources>
