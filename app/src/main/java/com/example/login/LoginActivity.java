@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.opengl.ETC1;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,9 +30,9 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     EditText mail,passwd;
     FirebaseAuth.AuthStateListener mAuthStateListener;
-    Button signIn,signUp;
-    TextView noAccountText,signuptext,signintext;
-    LinearLayout noAccountlayout,haveAccountlayout ;
+    Button signIn;
+    TextView noAccountText,signuptext;
+    LinearLayout noAccountlayout ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         passwd = (EditText) findViewById(R.id.passwd);
         noAccountText = (TextView) findViewById(R.id.noAccountText);
         signuptext = (TextView) findViewById(R.id.signuptext);
-        signUp = (Button) findViewById(R.id.signUp);
-        signintext = (TextView) findViewById(R.id.signintext);
-        haveAccountlayout = (LinearLayout) findViewById(R.id.haveAccountlayout);
         mAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
 
@@ -100,12 +98,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
     public void signupAct(View v){
-        noAccountlayout.setVisibility(TextView.GONE);
-        haveAccountlayout.setVisibility(TextView.VISIBLE);
-        signIn.setVisibility(TextView.GONE);
-        signUp.setVisibility(TextView.VISIBLE);
+       startActivity(new Intent(LoginActivity.this,CreerUnComptActivity.class));
+
     }
-    public void signUp(View v){
+    /*public void signUp(View v){
+        startActivity(new Intent(LoginActivity.this,CreerUnComptActivity.class));
         String email = mail.getText().toString();
         String pass = passwd.getText().toString();
         if(email.isEmpty())
@@ -139,11 +136,6 @@ public class LoginActivity extends AppCompatActivity {
                     });
         }
 
-    }
-    public void signinAct(View v){
-        noAccountlayout.setVisibility(TextView.VISIBLE);
-        haveAccountlayout.setVisibility(TextView.GONE);
-        signIn.setVisibility(TextView.VISIBLE);
-        signUp.setVisibility(TextView.GONE);
-    }
+    }*/
+
 }
