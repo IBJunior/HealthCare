@@ -3,17 +3,22 @@ package com.example.model;
 public class Medecin {
 
     private  String nom;
-    private String email;
+    private String prenom;
     private String specialite;
-    private String addresse;
+    private String adresse;
     private String tel;
+    private String email;
 
-    public Medecin(String nom, String email, String specialite, String addresse, String tel) {
+    public Medecin(String nom, String prenom, String specialite, String adresse, String tel, String mail) {
         this.nom = nom;
-        this.email = email;
+     this.prenom  = prenom;
+        this.email = mail;
         this.specialite = specialite;
-        this.addresse = addresse;
+        this.adresse = adresse;
         this.tel = tel;
+    }
+    public Medecin(){
+
     }
 
     public String getNom() {
@@ -28,6 +33,14 @@ public class Medecin {
         return email;
     }
 
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -40,12 +53,12 @@ public class Medecin {
         this.specialite = specialite;
     }
 
-    public String getAddresse() {
-        return addresse;
+    public String getAdresse() {
+        return adresse;
     }
 
-    public void setAddresse(String addresse) {
-        this.addresse = addresse;
+    public void setAdresse(String addresse) {
+        this.adresse = addresse;
     }
 
     public String getTel() {
@@ -54,5 +67,9 @@ public class Medecin {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public  String toString(){
+        return " Adresse" + adresse;
     }
 }
