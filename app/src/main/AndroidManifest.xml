@@ -11,29 +11,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DetailPatient"
+        <activity android:name=".HomeActivity"/>
+
+        <activity
+            android:name=".DetailPatient"
             android:label="Détails Patient"
-            android:parentActivityName=".ListPatient"
-            ></activity>
-        <activity android:name=".ListPatient" android:label="Liste des patients">
+            android:parentActivityName=".ListPatient" />
+        <activity
+            android:parentActivityName=".HomeActivity"
+            android:name=".ListPatient"
+            android:label="Liste des patients"/>
+
+        <activity
+            android:name=".DetailMedecin"
+            android:label="Détails Médecin "
+            android:parentActivityName=".ListMedecin" />
+        <activity
+            android:parentActivityName=".HomeActivity"
+            android:name=".ListMedecin"
+            android:label="Liste des médecins"></activity>
+        <activity
+            android:name="com.example.login.CreerUnComptActivity"
+            android:label="Création du compte" >
+
+        </activity>
+        <activity android:name="com.example.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DetailMedecin"
-            android:label="Détails Médecin "
-            android:parentActivityName=".ListMedecin" />
-        <activity
-            android:name=".ListMedecin"
-            android:label="Liste des médecins">
-        </activity>
-        <activity
-            android:name="com.example.login.CreerUnComptActivity"
-            android:label="Création du compte" />
-        <activity android:name="com.example.login.LoginActivity" />
         <activity android:name=".MainActivity" />
     </application>
 

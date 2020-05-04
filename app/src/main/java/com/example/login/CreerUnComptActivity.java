@@ -269,15 +269,17 @@ public class CreerUnComptActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<com.google.firebase.auth.AuthResult> task) {
 
-                        if(!task.isSuccessful()){
-                            mail_exist = true;
-                            Toast.makeText(CreerUnComptActivity.this,"SingUp Failed",Toast.LENGTH_SHORT);
+                        if(task.isSuccessful()){
+                            Log.d(TAG,"Creation réussie !");
+                            startActivity(new Intent(CreerUnComptActivity.this,LoginActivity.class));
+
+
 
                         }
                         else
-                        {mail_exist = false;
-
-                            startActivity(new Intent(CreerUnComptActivity.this,MainActivity.class));
+                        {
+                            Log.d(TAG, "Création échouée");
+                            Toast.makeText(CreerUnComptActivity.this,"SingUp Failed",Toast.LENGTH_SHORT);
 
                         }
                     }
@@ -286,6 +288,7 @@ public class CreerUnComptActivity extends AppCompatActivity {
     }
 
    private void addMedecin(){
+       Log.d(TAG,"Add medecin called");
         String nom_str = nom.getText().toString();
         String prenom_str = prenom.getText().toString();
         String adresse_str = adresse.getText().toString();
@@ -313,6 +316,8 @@ public class CreerUnComptActivity extends AppCompatActivity {
     }
 
     private void addPatient(){
+
+        Log.d(TAG,"Add Patient called");
         String nom_str = nom.getText().toString();
         String prenom_str = prenom.getText().toString();
         String adresse_str = adresse.getText().toString();
@@ -350,17 +355,14 @@ public class CreerUnComptActivity extends AppCompatActivity {
     public void valider(View view){
 
 
-           if(!signUpFirebase()){
+               signUpFirebase();
                if (medecin_radio.isChecked()){
                    addMedecin();
                }
                if(patient_radio.isChecked()){
                    addPatient();
                }
-           }
-           else {
-               Toast.makeText(this, "Le mail a déjà un compte",Toast.LENGTH_LONG).show();
-           }
+
 
 
 
