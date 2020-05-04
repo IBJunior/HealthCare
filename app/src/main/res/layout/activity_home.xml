@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="40dp"
+        android:orientation="vertical">
+
+        <GridLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:padding="10dp"
+            android:layout_marginTop="40dp"
+
+            android:rowCount="2">
+
+            <TextView
+                android:layout_height="90dp"
+                android:layout_width="90dp"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:background="@drawable/menu_item_bg"
+                android:textSize="18sp"
+                android:textColor="#FFF"
+                android:text="Dossier médical"
+                android:layout_margin="10dp"
+                android:layout_columnWeight="2"
+                />
+            <TextView
+
+                android:layout_height="90dp"
+                android:layout_width="90dp"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:background="@drawable/menu_item_bg"
+                android:textSize="18sp"
+                android:textColor="#FFF"
+                android:layout_margin="10dp"
+                android:layout_columnWeight="1"
+                android:layout_column="1"
+                android:text="Mes rendez-vous"/>
+            <TextView
+                android:id="@+id/list_med"
+                android:layout_height="90dp"
+                android:layout_width="90dp"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:background="@drawable/menu_item_bg"
+                android:textSize="18sp"
+                android:layout_margin="10dp"
+                android:textColor="#FFF"
+                android:text="liste des médecins"
+                android:layout_columnWeight="2"
+                />
+            <TextView
+                android:id="@+id/list_pat"
+                android:layout_margin="10dp"
+                android:layout_height="90dp"
+                android:layout_width="90dp"
+                android:padding="10dp"
+                android:textAlignment="center"
+                android:background="@drawable/menu_item_bg"
+                android:textSize="18sp"
+                android:textColor="#FFF"
+                android:text="liste des patients"
+                android:layout_columnWeight="2"
+                />
+
+
+        </GridLayout>
+        <TextView
+            android:id="@+id/deconnexion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Déconnexion"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
