@@ -1,6 +1,9 @@
 package com.example.model;
 
-public class Medecin {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Medecin implements Parcelable {
 
     private  String nom;
     private String prenom;
@@ -20,6 +23,27 @@ public class Medecin {
     public Medecin(){
 
     }
+
+    protected Medecin(Parcel in) {
+        nom = in.readString();
+        prenom = in.readString();
+        specialite = in.readString();
+        adresse = in.readString();
+        tel = in.readString();
+        email = in.readString();
+    }
+
+    public static final Creator<Medecin> CREATOR = new Creator<Medecin>() {
+        @Override
+        public Medecin createFromParcel(Parcel in) {
+            return new Medecin(in);
+        }
+
+        @Override
+        public Medecin[] newArray(int size) {
+            return new Medecin[size];
+        }
+    };
 
     public String getNom() {
         return nom;
@@ -71,5 +95,20 @@ public class Medecin {
 
     public  String toString(){
         return " Adresse" + adresse;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nom);
+        dest.writeString(prenom);
+        dest.writeString(specialite);
+        dest.writeString(adresse);
+        dest.writeString(tel);
+        dest.writeString(email);
     }
 }

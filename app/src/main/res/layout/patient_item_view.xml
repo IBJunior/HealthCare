@@ -18,7 +18,7 @@
         android:columnCount="3">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_med"
+            android:id="@+id/image_pat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
@@ -38,7 +38,7 @@
                 android:textSize="18sp"
                 />
             <TextView
-                android:id="@+id/specialite_ville"
+                android:id="@+id/situation_ville"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
