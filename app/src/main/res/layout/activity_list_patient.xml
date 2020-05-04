@@ -9,7 +9,7 @@
     tools:context=".ListMedecin">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/medecin_recycler"
+        android:id="@+id/patient_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">

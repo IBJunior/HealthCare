@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:padding="30dp"
+    android:layout_height="match_parent"
+    tools:context=".DetailMedecin">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <ImageView
+            android:id="@+id/image_med"
+            android:layout_width="120dp"
+            android:layout_gravity="center"
+            android:layout_height="120dp"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:id="@+id/nom_prenom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="Ali Ibrahim"
+            android:textColor="#000"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/situation_ville"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:text="Marié à Rabat"/>
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:text="Email : ibra_ali@gmail.com"/>
+        <TextView
+            android:id="@+id/tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:text="Tél : 0602581347"/>
+        <Button
+            android:id="@+id/contacter"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:text="Contacter"
+            android:textColor="#FFF"
+            android:textSize="18sp"
+            android:background="@drawable/plus_btn_bg"
+            android:textAllCaps="false"
+            android:layout_marginTop="20dp"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

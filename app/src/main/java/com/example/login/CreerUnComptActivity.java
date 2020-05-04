@@ -146,9 +146,6 @@ public class CreerUnComptActivity extends AppCompatActivity {
                         cal.set(Calendar.MONTH, mon-1);
                         year = (year<1900)?1900:(year>2100)?2100:year;
                         cal.set(Calendar.YEAR, year);
-                        // ^ first set year for the line below to work correctly
-                        //with leap years - otherwise, date e.g. 29/02/2012
-                        //would be automatically corrected to 28/02/2012
 
                         day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
                         clean = String.format("%02d%02d%02d",day, mon, year);
