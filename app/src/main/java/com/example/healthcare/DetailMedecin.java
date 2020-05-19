@@ -28,7 +28,6 @@ public class DetailMedecin extends AppCompatActivity {
 
         imageView = (ImageView) findViewById(R.id.image_med);
         nom_prenom = (TextView) findViewById(R.id.nom_prenom);
-        specialite = (TextView) findViewById(R.id.specialite);
         tel = (TextView) findViewById(R.id.tel);
         email = (TextView) findViewById(R.id.email);
         adresse = (TextView) findViewById(R.id.adresse);
@@ -36,7 +35,6 @@ public class DetailMedecin extends AppCompatActivity {
         rdv = (Button) findViewById(R.id.rdv);
 
         nom_prenom.setText("Dr "+medecin.getNom() + " " + medecin.getPrenom());
-        specialite.setText(medecin.getSpecialite());
         adresse.setText(medecin.getAdresse());
         tel.setText("Tel: " + medecin.getTel());
         email.setText("Email : " + medecin.getEmail());

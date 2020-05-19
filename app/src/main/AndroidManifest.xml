@@ -14,30 +14,18 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".EspacePatientActivity"/>
-        <activity android:name=".DetailPatient"
-            android:label="Détails Patient"
-            android:parentActivityName=".ListPatient"
-            ></activity>
-        <activity android:name=".ListPatient" android:label="Liste des patients">
+        <activity android:name=".DetailMedecin" />
+        <activity android:name=".ListMedecin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DetailMedecin"
-            android:label="Détails Patient" />
-        <activity
-            android:name=".ListMedecin"
-            android:label="Liste des patients" />
-        <activity
-            android:name="com.example.login.CreerUnComptActivity"
-            android:label="Création du compte" />
+        <activity android:name="com.example.login.CreerUnComptActivity" />
         <activity android:name="com.example.login.LoginActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:label="Health+" />
+        <activity android:name=".MainActivity" android:label="Health+" >
+
+        </activity>
     </application>
 
 </manifest>
