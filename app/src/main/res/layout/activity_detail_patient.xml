@@ -24,17 +24,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="Dr Ali Ibrahim"
+            android:text="Ali Ibrahim"
             android:textColor="#000"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"/>
+
         <TextView
-            android:id="@+id/specialite_ville"
+            android:id="@+id/situation_ville"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000"
             android:textSize="18sp"
-            android:text="Cardiologue à Rabat"/>
+            android:text="Marié à Rabat"/>
         <TextView
             android:id="@+id/email"
             android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.healthcare">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,7 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EspacePatientActivity">
+
+        <activity android:name=".EspacePatientActivity"/>
+        <activity android:name=".DetailPatient"
+            android:label="Détails Patient"
+            android:parentActivityName=".ListPatient"
+            ></activity>
+        <activity android:name=".ListPatient" android:label="Liste des patients">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,8 +27,7 @@
         </activity>
         <activity
             android:name=".DetailMedecin"
-            android:label="Détails Patient"
-            android:parentActivityName=".ListMedecin" />
+            android:label="Détails Patient" />
         <activity
             android:name=".ListMedecin"
             android:label="Liste des patients" />
@@ -31,7 +37,7 @@
         <activity android:name="com.example.login.LoginActivity" />
         <activity
             android:name=".MainActivity"
-            android:label="Health+"></activity>
+            android:label="Health+" />
     </application>
 
 </manifest>
