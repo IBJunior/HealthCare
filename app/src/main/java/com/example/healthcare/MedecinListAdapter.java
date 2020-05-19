@@ -1,13 +1,12 @@
 package com.example.healthcare;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,15 +47,14 @@ public class MedecinListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
         Log.d(TAG,"OnBindViewHolder called");
 
         ((ViewHolder) holder).specialite_ville.setText(medecins.get(position).getSpecialite() +"-" + medecins.get(position).getAdresse());
-        ((ViewHolder) holder).nom_prenom.setText("Dr " +medecins.get(position).getNom() + " " + medecins.get(position).getPrenom());
-
+        ((ViewHolder) holder).nom_prenom.setText(medecins.get(position).getNom() + " " + medecins.get(position).getPrenom());
         ((ViewHolder) holder).plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(mcontext,DetailMedecin.class);
-               Log.d(TAG, ""+ medecins.get(position).toString());
-                intent.putExtra("Medcin", medecins.get(position));
+                Intent intent = new Intent(mcontext, DetailMedecin.class);
+                Log.d(TAG, ""+ medecins.get(position).toString());
+                intent.putExtra("Patient", medecins.get(position));
                 mcontext.startActivity(intent);
 
             }
@@ -71,7 +69,8 @@ public class MedecinListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
     public class  ViewHolder extends RecyclerView.ViewHolder{
 
         CircleImageView image_med;
-        TextView nom_prenom,specialite_ville,plus;
+        TextView nom_prenom, specialite_ville;
+        LinearLayout plus;
 
         public ViewHolder(View itemView){
             super(itemView);

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,10 +13,10 @@ import com.example.model.Medecin;
 public class DetailMedecin extends AppCompatActivity {
 
     Medecin medecin;
-    private static final String TAG = "DetailMedecin";
+    private static final String TAG = "DetailPatient";
     ImageView imageView;
-    TextView nom_prenom, specialite_ville, tel, email;
-    Button contacter;
+    TextView nom_prenom, specialite, adresse, tel, email;
+    Button rdv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,19 +24,23 @@ public class DetailMedecin extends AppCompatActivity {
         setContentView(R.layout.activity_detail_medecin);
         Intent intent = getIntent();
 
-        medecin = intent.getParcelableExtra("Medcin");
-        Log.d(TAG,medecin.toString());
+        medecin = intent.getParcelableExtra("Patient");
+
         imageView = (ImageView) findViewById(R.id.image_med);
         nom_prenom = (TextView) findViewById(R.id.nom_prenom);
-        specialite_ville = (TextView) findViewById(R.id.specialite_ville);
+        specialite = (TextView) findViewById(R.id.specialite);
         tel = (TextView) findViewById(R.id.tel);
         email = (TextView) findViewById(R.id.email);
-        contacter = (Button) findViewById(R.id.contacter);
+        adresse = (TextView) findViewById(R.id.adresse);
 
-        nom_prenom.setText("Dr "+ medecin.getNom() + " " + medecin.getPrenom());
-        specialite_ville.setText(medecin.getSpecialite() + " à " + medecin.getAdresse());
+        rdv = (Button) findViewById(R.id.rdv);
+
+        nom_prenom.setText("Dr "+medecin.getNom() + " " + medecin.getPrenom());
+        specialite.setText(medecin.getSpecialite());
+        adresse.setText(medecin.getAdresse());
         tel.setText("Tel: " + medecin.getTel());
         email.setText("Email : " + medecin.getEmail());
+
 
 
 

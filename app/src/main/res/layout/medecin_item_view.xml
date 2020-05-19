@@ -1,62 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border_bottom"
-    android:padding="15dp"
+    android:background="#FFF"
+    android:elevation="2dp"
     android:layout_margin="5dp"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:id="@+id/plus"
     android:orientation="horizontal">
 
     <GridLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFF"
-        android:columnCount="3">
+
+        android:columnCount="2">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_med"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_columnWeight="1"
             android:src="@mipmap/ic_launcher"/>
         <LinearLayout
             android:layout_columnWeight="2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="15dp"
+            >
             <TextView
                 android:id="@+id/nom_prenom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Canada"
+                android:textAllCaps="true"
                 android:textColor="#000"
                 android:layout_centerVertical="true"
-                android:textSize="18sp"
+                android:layout_marginRight="10dp"
                 />
             <TextView
                 android:id="@+id/specialite_ville"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:textAllCaps="true"
                 android:text="Place holder"/>
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/plus"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:layout_width="50dp"
-            android:padding="8dp"
-            android:textColor="#FFF"
-            android:background="@drawable/plus_btn_bg"
-            android:layout_columnWeight="1"
-            android:layout_marginTop="10dp"
-            android:text="Infos"/>
 
 
     </GridLayout>

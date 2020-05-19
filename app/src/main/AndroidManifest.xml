@@ -11,11 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DetailPatient"
-            android:label="Détails Patient"
-            android:parentActivityName=".ListPatient"
-            ></activity>
-        <activity android:name=".ListPatient" android:label="Liste des patients">
+        <activity android:name=".EspacePatientActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,17 +20,18 @@
         </activity>
         <activity
             android:name=".DetailMedecin"
-            android:label="Détails Médecin "
+            android:label="Détails Patient"
             android:parentActivityName=".ListMedecin" />
         <activity
             android:name=".ListMedecin"
-            android:label="Liste des médecins">
-        </activity>
+            android:label="Liste des patients" />
         <activity
             android:name="com.example.login.CreerUnComptActivity"
             android:label="Création du compte" />
         <activity android:name="com.example.login.LoginActivity" />
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:label="Health+"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">Health Care</string>
+    <string name="intro_text">Que vous soyez médecin ou patient health+ est faite pour vous.</string>
+    <string name="logo">Health</string>
+    <string name="pass_oub">Mot de passe oublié?</string>
+    <string name="mail">Email</string>
+    <string name="pass">Mot de passe</string>
+    <string name="deja_un_cmpt">Vous avez déjà un compte ?</string>
+    <string name="connect">Se connecter</string>
+    <string name="creer">Créer un compte</string>
+    <string name="vous">Vous êtes ?</string>
+    <string name="med">Médecin</string>
+    <string name="pat">Patient</string>
+    <string name="rdv">Nouveau RDV</string>
+    <string name="cons">Consultations</string>
+    <string name="trouve_med">Trouvez un médecin en fonction de sa ville ou spécialité</string>
+    <string name="bienvenu">Bienvenue sur Health+ une dernière étape.</string>
 
     <string-array name="situations">
 

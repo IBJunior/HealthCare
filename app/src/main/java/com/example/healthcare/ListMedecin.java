@@ -17,13 +17,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ListMedecin extends AppCompatActivity {
 
     private ArrayList<Medecin> medecins = new ArrayList<>();
-    private static final String TAG = "ListMedecin";
-    MedecinListAdapter medecinListAdapter;
+    private static final String TAG = "ListPatient";
+    MedecinListAdapter patientListAdapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -49,10 +48,11 @@ public class ListMedecin extends AppCompatActivity {
                         Medecin med =  d.toObject(Medecin.class);
 
                         medecins.add(med);
+                        Log.d(TAG," "+ med.getNom());
 
 
                     }
-                    medecinListAdapter.notifyDataSetChanged();
+                    patientListAdapter.notifyDataSetChanged();
 
                 }
                 else {
@@ -70,8 +70,8 @@ public class ListMedecin extends AppCompatActivity {
 
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.medecin_recycler);
-        medecinListAdapter = new MedecinListAdapter(this,medecins);
-        recyclerView.setAdapter(medecinListAdapter);
+        patientListAdapter = new MedecinListAdapter(this,medecins);
+        recyclerView.setAdapter(patientListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 

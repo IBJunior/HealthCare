@@ -1,8 +1,5 @@
 package com.example.login;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,9 +12,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.healthcare.MainActivity;
 import com.example.healthcare.R;
@@ -27,30 +28,29 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 
 public class CreerUnComptActivity extends AppCompatActivity {
     Spinner situations,specialites;
-    EditText mail,passwd,date_naiss,nom,
-            prenom,adresse,tel;
-    TextView suivant;
-    ImageView logo;
+    EditText passwd,naissance,nom,
+            prenom,ville,tel;
+    String mail_str;
+    RadioGroup profile;
     private static final String TAG = "MainActivity";
-    RadioButton medecin_radio,patient_radio;
-    LinearLayout inscription_layout,info_login,infos_personnelles,
-            type_compt_layout,specialites_layout,situations_layout;
+    RadioButton med_radio,pat_radio;
+    LinearLayout pat_only, med_only;
     private FirebaseAuth mAuth;
-    private boolean mail_exist;
-    FirebaseAuth.AuthStateListener mAuthStateListener;
+    Button valide;
+    ArrayList<Medecin> medecins = new ArrayList<>();
+    ArrayList<Patient> patients = new ArrayList<>();
     // Access a Cloud Firestore instance from your Activity
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -59,63 +59,65 @@ public class CreerUnComptActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creer_un_compt);
-        situations  = (Spinner) findViewById(R.id.situations);
-        specialites  = (Spinner) findViewById(R.id.specialites);
-        situations_layout = (LinearLayout) findViewById(R.id.situations_layout);
-        specialites_layout = (LinearLayout) findViewById(R.id.specialites_layout);
+        situations  = (Spinner) findViewById(R.id.situation);
+        specialites  = (Spinner) findViewById(R.id.specialite);
+        pat_only = (LinearLayout) findViewById(R.id.pat_only);
+        med_only = (LinearLayout) findViewById(R.id.med_only);
 
         nom = (EditText) findViewById(R.id.nom);
         prenom = (EditText) findViewById(R.id.prenom);
-        adresse = (EditText) findViewById(R.id.adresse);
-        tel = (EditText) findViewById(R.id.phone);
+        ville = (EditText) findViewById(R.id.ville);
+        tel = (EditText) findViewById(R.id.tel);
 
-        suivant = (TextView) findViewById(R.id.suivant);
-        logo = (ImageView) findViewById(R.id.logo);
-        medecin_radio = (RadioButton) findViewById(R.id.medecin_radio);
-        patient_radio = (RadioButton) findViewById(R.id.patient_radio);
+        med_radio = (RadioButton) findViewById(R.id.med_radio);
+        pat_radio = (RadioButton) findViewById(R.id.pat_radio);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.situations, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         situations.setAdapter(adapter);
         ArrayAdapter<CharSequence> adapter_med = ArrayAdapter.createFromResource(this,R.array.specialite, android.R.layout.simple_spinner_item);
         adapter_med.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         specialites.setAdapter(adapter_med);
+        Intent i = getIntent();
+
+        mail_str  = i.getStringExtra("mail");
         mAuth = FirebaseAuth.getInstance();
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
 
+        profile = (RadioGroup) findViewById(R.id.profile);
+        valide = findViewById(R.id.vald);
+        naissance = (EditText) findViewById(R.id.naissance);
+        mask_date(naissance);
+
+        profile.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser mFirebaseUser = mAuth.getCurrentUser();
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId== R.id.med_radio){
+                    pat_only.setVisibility(View.GONE);
+                    valide.setVisibility(View.GONE);
+                    med_only.setVisibility(View.VISIBLE);
+                    valide.setVisibility(View.VISIBLE);
 
-                if(mFirebaseUser !=null){
-                    Toast.makeText(CreerUnComptActivity.this,"You are logged",Toast.LENGTH_SHORT);
-                    startActivity(new Intent(CreerUnComptActivity.this, MainActivity.class));
                 }
-                else {
-                    Toast.makeText(CreerUnComptActivity.this,"You're not log",Toast.LENGTH_SHORT);
+                if(checkedId== R.id.pat_radio){
+                    med_only.setVisibility(View.GONE);
+                    valide.setVisibility(View.GONE);
+                    pat_only.setVisibility(View.VISIBLE);
+                    valide.setVisibility(View.VISIBLE);
+
                 }
             }
-        };
-
-
-        infos_personnelles = (LinearLayout) findViewById(R.id.infos_personnelles);
-        inscription_layout = (LinearLayout) findViewById(R.id.inscription_layout);
-        info_login = (LinearLayout) findViewById(R.id.info_login);
-        type_compt_layout = (LinearLayout) findViewById(R.id.type_compt_layout);
-
-        mail = (EditText) findViewById(R.id.mail);
-        passwd = (EditText) findViewById(R.id.passwd);
-        date_naiss = (EditText) findViewById(R.id.date_naiss);
-
-        mask_date(date_naiss);
+        });
 
 
 
     }
 
+
+
     private  void mask_date(final EditText date){
 
 
-           TextWatcher tw = new TextWatcher() {
+        TextWatcher tw = new TextWatcher() {
             private String current = "";
             private String ddmmyyyy = "DDMMYYYY";
             private Calendar cal = Calendar.getInstance();
@@ -171,127 +173,21 @@ public class CreerUnComptActivity extends AppCompatActivity {
         date.addTextChangedListener(tw);
     }
 
-    public  void suivant(View view){
 
-        if (medecin_radio.isChecked() || patient_radio.isChecked()){
-            type_compt_layout.setVisibility(View.GONE);
-            inscription_layout.setVisibility(View.VISIBLE);
-            info_login.setVisibility(View.VISIBLE);
-
-
-        }
-        if(!medecin_radio.isChecked() && !patient_radio.isChecked()){
-            Toast.makeText(CreerUnComptActivity.this,"Veuillez choisir un profile",Toast.LENGTH_SHORT).show();
-        }
-
-
-    }
 
     boolean isEmailValid(CharSequence email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
-    public void continuer(View view){
-
-        String mail_str = mail.getText().toString();
-        String passwd_str = passwd.getText().toString();
 
 
-        if(mail_str.isEmpty()){
 
-            mail.setError("Entrez une adresse mail");
-            mail.requestFocus();
-
-        }
-        else if(passwd_str.isEmpty()){
-            passwd.setError("Entrez un mot de passe");
-            passwd.requestFocus();
-        }
-        else  if(!mail_str.isEmpty() && !passwd_str.isEmpty()){
-           if( ! isEmailValid(mail_str)){
-               mail.setError("Entrez une adresse mail valide");
-               mail.requestFocus();
-           }
-           else if(passwd_str.length() < 8){
-
-                passwd.setError("Entrer un mot de passe de minimum 8 caractères");
-                passwd.requestFocus();
-           }
-           if(isEmailValid(mail_str) && passwd_str.length() >= 8){
-               logo.setVisibility(View.GONE);
-               infos_personnelles.setVisibility(View.VISIBLE);
-               if(medecin_radio.isChecked() ){
-                   info_login.setVisibility(View.GONE);
-                   specialites_layout.setVisibility(View.VISIBLE);
-               }
-               if (patient_radio.isChecked()){
-                   info_login.setVisibility(View.GONE);
-                   situations_layout.setVisibility(View.VISIBLE);
-                   date_naiss.setVisibility(View.VISIBLE);
-               }
-
-           }
-        }
-        else {
-            Toast.makeText(CreerUnComptActivity.this,"Veuillez entrer les infos de login",Toast.LENGTH_SHORT);
-        }
-
-
-    }
-
-
-    public void showSignInForm(View view){
-        startActivity(new Intent(CreerUnComptActivity.this, LoginActivity.class));
-    }
-
-    public  boolean checkEmailInFirebase(){
-
-
-        String mail_str = mail.getText().toString();
-        mAuth.fetchSignInMethodsForEmail(mail_str).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
-            @Override
-            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
-                 mail_exist = ! task.getResult().toString().isEmpty();
-                 Toast.makeText(CreerUnComptActivity.this,task.getResult().toString(),Toast.LENGTH_LONG).show();
-            }
-        });
-
-        return  mail_exist;
-
-    }
-
-    private boolean signUpFirebase(){
-
-        String mail_str = mail.getText().toString();
-        String passwd_str = passwd.getText().toString();
-        mAuth.createUserWithEmailAndPassword(mail_str,passwd_str).addOnCompleteListener(CreerUnComptActivity.this,
-                new OnCompleteListener<com.google.firebase.auth.AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<com.google.firebase.auth.AuthResult> task) {
-
-                        if(!task.isSuccessful()){
-                            mail_exist = true;
-                            Toast.makeText(CreerUnComptActivity.this,"SingUp Failed",Toast.LENGTH_SHORT);
-
-                        }
-                        else
-                        {mail_exist = false;
-
-                            startActivity(new Intent(CreerUnComptActivity.this,MainActivity.class));
-
-                        }
-                    }
-                });
-        return mail_exist;
-    }
-
-   private void addMedecin(){
+    private void addMedecin(){
         String nom_str = nom.getText().toString();
         String prenom_str = prenom.getText().toString();
-        String adresse_str = adresse.getText().toString();
+        String adresse_str = ville.getText().toString();
         String tel_str = tel.getText().toString();
         String specialite = specialites.getSelectedItem().toString();
-        String mail_str = mail.getText().toString();
 
         final Medecin med = new Medecin( nom_str, prenom_str, specialite, adresse_str, tel_str, mail_str);
 
@@ -312,17 +208,17 @@ public class CreerUnComptActivity extends AppCompatActivity {
 
     }
 
-    private void addPatient(){
+    /*private void addPatient(){
         String nom_str = nom.getText().toString();
         String prenom_str = prenom.getText().toString();
-        String adresse_str = adresse.getText().toString();
+        String adresse_str = ville.getText().toString();
         String tel_str = tel.getText().toString();
         String situation = situations.getSelectedItem().toString();
-        String mail_str = mail.getText().toString();
+
         Date  date_naissance = null;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         try {
-            date_naissance = sdf.parse(date_naiss.getText().toString());
+            date_naissance = sdf.parse(naissance.getText().toString());
         }
         catch (Exception e){
             e.printStackTrace();
@@ -346,30 +242,16 @@ public class CreerUnComptActivity extends AppCompatActivity {
                 });
 
 
-    }
+    }*/
     public void valider(View view){
-
-
-           if(!signUpFirebase()){
-               if (medecin_radio.isChecked()){
-                   addMedecin();
-               }
-               if(patient_radio.isChecked()){
+        Log.d(TAG,"Valider : called !");
+        if (med_radio.isChecked()){
+            addMedecin();
+        }
+               /*if(med_radio.isChecked()){
                    addPatient();
-               }
-           }
-           else {
-               Toast.makeText(this, "Le mail a déjà un compte",Toast.LENGTH_LONG).show();
-           }
-
-
-
-
+               }*/
 
     }
-
-
-
-
 
 }
