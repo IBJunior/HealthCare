@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,24 +25,22 @@ public class DetailMedecin extends AppCompatActivity {
         setContentView(R.layout.activity_detail_medecin);
         Intent intent = getIntent();
 
-        medecin = intent.getParcelableExtra("Patient");
+        medecin = intent.getParcelableExtra("medecin");
 
         imageView = (ImageView) findViewById(R.id.image_med);
         nom_prenom = (TextView) findViewById(R.id.nom_prenom);
         tel = (TextView) findViewById(R.id.tel);
         email = (TextView) findViewById(R.id.email);
         adresse = (TextView) findViewById(R.id.adresse);
+        specialite = findViewById(R.id.specialite);
 
-        rdv = (Button) findViewById(R.id.rdv);
-
+        rdv = findViewById(R.id.rdv);
+        
         nom_prenom.setText("Dr "+medecin.getNom() + " " + medecin.getPrenom());
         adresse.setText(medecin.getAdresse());
-        tel.setText("Tel: " + medecin.getTel());
-        email.setText("Email : " + medecin.getEmail());
-
-
-
-
+        specialite.setText(medecin.getSpecialite());
+        tel.setText(medecin.getTel());
+        email.setText(medecin.getEmail());
 
     }
 }

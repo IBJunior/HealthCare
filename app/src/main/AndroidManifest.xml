@@ -12,20 +12,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".EspacePatientActivity"/>
+        <activity android:name=".EspacePatientActivity" />
         <activity android:name=".DetailMedecin" />
         <activity android:name=".ListMedecin">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name="com.example.login.CreerUnComptActivity" />
         <activity android:name="com.example.login.LoginActivity" />
-        <activity android:name=".MainActivity" android:label="Health+" >
-
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="Health+"></activity>
     </application>
 
 </manifest>

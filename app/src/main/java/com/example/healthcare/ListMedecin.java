@@ -6,7 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.model.Medecin;
@@ -22,16 +29,47 @@ public class ListMedecin extends AppCompatActivity {
 
     private ArrayList<Medecin> medecins = new ArrayList<>();
     private static final String TAG = "ListPatient";
-    MedecinListAdapter patientListAdapter;
+    MedecinListAdapter medecinListAdapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    EditText search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG,"On Create called");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_medecin);
         Log.d(TAG,"Oncreate Started");
+        search = (EditText) findViewById(R.id.search);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
         iniMedecinList();
+
+    }
+
+    private void filter(String s){
+        ArrayList<Medecin> medecins_filter = new ArrayList<>();
+
+        for (Medecin med : medecins){
+            if (med.getSpecialite().toLowerCase().trim().contains(s) || med.getAdresse().toLowerCase().trim().contains(s)){
+                medecins_filter.add(med);
+            }
+        }
+        medecinListAdapter.filterList(medecins_filter);
     }
 
 
@@ -52,7 +90,7 @@ public class ListMedecin extends AppCompatActivity {
 
 
                     }
-                    patientListAdapter.notifyDataSetChanged();
+                    medecinListAdapter.notifyDataSetChanged();
 
                 }
                 else {
@@ -70,10 +108,12 @@ public class ListMedecin extends AppCompatActivity {
 
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.medecin_recycler);
-        patientListAdapter = new MedecinListAdapter(this,medecins);
-        recyclerView.setAdapter(patientListAdapter);
+        medecinListAdapter = new MedecinListAdapter(this,medecins);
+        recyclerView.setAdapter(medecinListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
     }
+
+
 }
