@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Espace Patient"
+                android:text="@string/esp_p"
                 android:textColor="@color/darkOffi"
                 android:textStyle="bold"
                 android:textSize="18sp"
@@ -41,7 +41,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:orientation="vertical">
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="50dp"
@@ -72,11 +72,11 @@
             android:layout_height="40dp"
             android:layout_width="250dp"
             android:padding="10dp"
-
-            android:hint="Trouver un médecin "
+            android:hint="@string/trouve_med"
             android:layout_gravity="center"
-            android:drawableLeft="@drawable/ic_search"
+            android:drawableStart="@drawable/ic_search"
             android:drawablePadding="10dp"
+            android:inputType="text"
             />
     </LinearLayout>
     <ScrollView

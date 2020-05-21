@@ -68,17 +68,17 @@
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/search"
-            android:layout_height="40dp"
-            android:layout_width="250dp"
-            android:padding="10dp"
-
-            android:hint="Trouver un médecin "
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu"
+            android:textAlignment="center"
             android:layout_gravity="center"
-            android:drawableLeft="@drawable/ic_search"
-            android:drawablePadding="10dp"
-            />
+            android:textColor="@color/darkOffi"
+            android:textAllCaps="true"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:padding="10dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="250dp"
@@ -153,11 +153,12 @@
                 android:orientation="vertical"
                 >
                 <ImageView
+                    android:id="@+id/search_med"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
-
+                    android:src="@drawable/ic_search"
                     android:layout_gravity="center"/>
 
                 <TextView
@@ -167,7 +168,7 @@
                     android:layout_gravity="center"
                     android:textStyle="bold"
                     android:textColor="@color/darkOffi"
-                    android:text="@string/rdv"/>
+                    android:text="@string/med"/>
 
             </LinearLayout>
             <LinearLayout
