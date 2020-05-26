@@ -10,13 +10,13 @@ public class Patient implements Parcelable {
 
         private  String nom;
         private String prenom;
-        private Date date_naissance;
+        private String date_naissance;
         private String situation_familiale;
         private String  email;
         private String tel;
         private  String adresse;
 
-        public Patient(String nom,String prenom, Date date_naissance,String situation_familiale, String email, String tel, String adresse) {
+        public Patient(String nom,String prenom, String date_naissance,String situation_familiale, String email, String tel, String adresse) {
             this.nom = nom;
             this.prenom = prenom;
             this.date_naissance = date_naissance;
@@ -82,11 +82,11 @@ public class Patient implements Parcelable {
         this.prenom = prenom;
     }
 
-    public Date getDate_naissance() {
+    public String  getDate_naissance() {
         return date_naissance;
     }
 
-    public void setDate_naissance(Date date_naissance) {
+    public void setDate_naissance(String  date_naissance) {
         this.date_naissance = date_naissance;
     }
 

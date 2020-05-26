@@ -49,8 +49,7 @@ public class CreerUnComptActivity extends AppCompatActivity {
     LinearLayout pat_only, med_only;
     private FirebaseAuth mAuth;
     Button valide;
-    ArrayList<Medecin> medecins = new ArrayList<>();
-    ArrayList<Patient> patients = new ArrayList<>();
+
     // Access a Cloud Firestore instance from your Activity
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -186,7 +185,9 @@ public class CreerUnComptActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG,"DocumentSnapshot added with ID: " + documentReference.getId());
-                startActivity(new Intent(CreerUnComptActivity.this,MainActivity.class));
+                Intent intent = new Intent(CreerUnComptActivity.this,LoginActivity.class);
+                intent.putExtra("Welcome","Compte bien crée connectez vous pour accéder à votre espace");
+                startActivity(intent);
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
@@ -199,23 +200,16 @@ public class CreerUnComptActivity extends AppCompatActivity {
 
     }
 
-    /*private void addPatient(){
+    private void addPatient(){
         String nom_str = nom.getText().toString();
         String prenom_str = prenom.getText().toString();
         String adresse_str = ville.getText().toString();
         String tel_str = tel.getText().toString();
         String situation = situations.getSelectedItem().toString();
+        String date_naisse = naissance.getText().toString();
 
-        Date  date_naissance = null;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            date_naissance = sdf.parse(naissance.getText().toString());
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
 
-        Patient pat = new Patient(nom_str,prenom_str, date_naissance,situation,mail_str,tel_str,adresse_str);
+        Patient pat = new Patient(nom_str,prenom_str, date_naisse,situation,mail_str,tel_str,adresse_str);
 
 
         db.collection("patients").add(pat).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -233,15 +227,15 @@ public class CreerUnComptActivity extends AppCompatActivity {
                 });
 
 
-    }*/
+    }
     public void valider(View view){
         Log.d(TAG,"Valider : called !");
         if (med_radio.isChecked()){
             addMedecin();
         }
-               /*if(med_radio.isChecked()){
+        if(pat_radio.isChecked()){
                    addPatient();
-               }*/
+        }
 
     }
 
