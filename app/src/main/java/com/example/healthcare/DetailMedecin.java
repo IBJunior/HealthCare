@@ -35,6 +35,15 @@ public class DetailMedecin extends AppCompatActivity {
         specialite = findViewById(R.id.specialite);
 
         rdv = findViewById(R.id.rdv);
+
+        rdv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DetailMedecin.this,PriseRdv.class);
+                i.putExtra("medecin",medecin);
+                startActivity(i);
+            }
+        });
         
         nom_prenom.setText("Dr "+medecin.getNom() + " " + medecin.getPrenom());
         adresse.setText(medecin.getAdresse());

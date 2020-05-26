@@ -173,15 +173,6 @@ public class CreerUnComptActivity extends AppCompatActivity {
         date.addTextChangedListener(tw);
     }
 
-
-
-    boolean isEmailValid(CharSequence email) {
-        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-
-
-
     private void addMedecin(){
         String nom_str = nom.getText().toString();
         String prenom_str = prenom.getText().toString();
