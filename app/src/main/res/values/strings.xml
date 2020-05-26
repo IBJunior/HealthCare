@@ -21,6 +21,11 @@
     <string name="tel">Tél :</string>
     <string name="vil">Ville :</string>
     <string name="prdv">Prendre rdv</string>
+    <string name="choixDate">Date :</string>
+    <string name="chdate">Choisir une date</string>
+    <string name="chHeure">choisir une heure</string>
+    <string name="hr">Heure :</string>
+    <string name="vfdispo">Vérifier disponibilité</string>
 
     <string-array name="situations">
 

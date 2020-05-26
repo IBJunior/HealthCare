@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PriseRdv"></activity>
         <activity android:name=".EspacePatientActivity" />
         <activity android:name=".DetailMedecin" />
         <activity android:name=".ListMedecin">
@@ -25,7 +26,7 @@
         <activity android:name="com.example.login.LoginActivity" />
         <activity
             android:name=".MainActivity"
-            android:label="Health+"></activity>
+            android:label="Health+" />
     </application>
 
 </manifest>
