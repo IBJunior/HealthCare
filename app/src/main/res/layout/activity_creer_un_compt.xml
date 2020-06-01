@@ -165,6 +165,27 @@
                 android:hint="Expériences" />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="35dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/photo_profile"
+                android:layout_width="wrap_content"
+                android:onClick="choisirImage"
+                android:layout_height="wrap_content"
+                android:text="@string/img_profile"/>
+            <ImageView
+                android:id="@+id/img_mini"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+
+                android:src="@mipmap/ic_launcher"/>
+            
+        </LinearLayout>
         <Button
             android:id="@+id/vald"
             android:visibility="gone"

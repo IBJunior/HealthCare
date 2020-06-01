@@ -11,6 +11,8 @@ public class Medecin implements Parcelable {
     private String adresse;
     private String tel;
     private String email;
+    private String photoUrl;
+
 
     public Medecin(String nom, String prenom, String specialite, String adresse, String tel, String mail) {
         this.nom = nom;
@@ -110,5 +112,14 @@ public class Medecin implements Parcelable {
         dest.writeString(adresse);
         dest.writeString(tel);
         dest.writeString(email);
+    }
+
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

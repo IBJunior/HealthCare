@@ -26,6 +26,9 @@
     <string name="chHeure">choisir une heure</string>
     <string name="hr">Heure :</string>
     <string name="vfdispo">Vérifier disponibilité</string>
+    <string name="img_profile">Choisir une image</string>
+    <string name="esp_med">Espace Médecin</string>
+    <string name="disp">Disponibilité</string>
 
     <string-array name="situations">
 

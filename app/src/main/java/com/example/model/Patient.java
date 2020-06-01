@@ -15,6 +15,7 @@ public class Patient implements Parcelable {
         private String  email;
         private String tel;
         private  String adresse;
+        private String  photoUrl;
 
         public Patient(String nom,String prenom, String date_naissance,String situation_familiale, String email, String tel, String adresse) {
             this.nom = nom;
@@ -120,6 +121,14 @@ public class Patient implements Parcelable {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }
 

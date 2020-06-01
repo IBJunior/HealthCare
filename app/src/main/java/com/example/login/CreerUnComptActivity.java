@@ -1,11 +1,14 @@
 package com.example.login;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,12 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.healthcare.MainActivity;
 import com.example.healthcare.R;
 import com.example.model.Medecin;
 import com.example.model.Patient;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,6 +37,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,15 +51,21 @@ public class CreerUnComptActivity extends AppCompatActivity {
     EditText passwd,naissance,nom,
             prenom,ville,tel;
     String mail_str;
+    String image_url;
     RadioGroup profile;
     private static final String TAG = "MainActivity";
     RadioButton med_radio,pat_radio;
     LinearLayout pat_only, med_only;
     private FirebaseAuth mAuth;
-    Button valide;
-
+    Button valide,photo_profile;
+    ImageView img_mini;
+    private Uri imageUri;
     // Access a Cloud Firestore instance from your Activity
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    StorageReference storageReference;
+    private final static int PICK_IMAGE_REQUEST = 1;
+
+
 
 
     @Override
@@ -62,6 +76,9 @@ public class CreerUnComptActivity extends AppCompatActivity {
         specialites  = (Spinner) findViewById(R.id.specialite);
         pat_only = (LinearLayout) findViewById(R.id.pat_only);
         med_only = (LinearLayout) findViewById(R.id.med_only);
+
+        photo_profile = findViewById(R.id.photo_profile);
+        img_mini = findViewById(R.id.img_mini);
 
         nom = (EditText) findViewById(R.id.nom);
         prenom = (EditText) findViewById(R.id.prenom);
@@ -110,8 +127,6 @@ public class CreerUnComptActivity extends AppCompatActivity {
 
 
     }
-
-
 
     private  void mask_date(final EditText date){
 
@@ -172,14 +187,91 @@ public class CreerUnComptActivity extends AppCompatActivity {
         date.addTextChangedListener(tw);
     }
 
+    private String  getExtension(Uri uri){
+
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+
+        return  mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    private String addPhotoProfile(String nom_image,String profile){
+        storageReference = FirebaseStorage.getInstance().getReference(profile);
+        image_url = "";
+        final StorageReference fileRef = storageReference.child(nom_image + "." +getExtension(imageUri));
+
+        final  UploadTask uploadTask =  fileRef.putFile(imageUri);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,"échec d'upload");
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d(TAG,"Image uploaded !");
+
+                Task<Uri> urlstuff = uploadTask.continueWith(new Continuation<UploadTask.TaskSnapshot, Uri>() {
+                    @Override
+                    public Uri then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+
+                        if(!task.isSuccessful()){
+                            Log.d(TAG,"sauvegarde de l'image échouée");
+                        }
+
+                        Log.d(TAG,"Recup URL : "+ fileRef.getDownloadUrl().toString());
+                        image_url = fileRef.getDownloadUrl().toString();
+                        return null;
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()){
+                            Log.d(TAG,"Recuperation de url success");
+                        }
+                    }
+                });
+            }
+        });
+
+        /*if (imageUri != null){
+            StorageReference fileRef = storageReference.child(nom_image + "." +getExtension(imageUri));
+            fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    Log.d(TAG,"Image saved successfully");
+                    image_url = taskSnapshot.getStorage().getDownloadUrl().toString();
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG,"Image not saved ");
+                }
+            });
+
+        }else {
+            Toast.makeText(CreerUnComptActivity.this,"Veuillez choisir une image",Toast.LENGTH_LONG).show();
+        }*/
+
+        return image_url;
+
+    }
+
+
     private void addMedecin(){
+        String imgUrl;
         String nom_str = nom.getText().toString();
         String prenom_str = prenom.getText().toString();
         String adresse_str = ville.getText().toString();
         String tel_str = tel.getText().toString();
         String specialite = specialites.getSelectedItem().toString();
+        imgUrl = addPhotoProfile(mail_str,"photos_profile_medecin");
+
 
         final Medecin med = new Medecin( nom_str, prenom_str, specialite, adresse_str, tel_str, mail_str);
+        med.setPhotoUrl(imgUrl);
 
         db.collection("medecins").add(med).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -198,25 +290,28 @@ public class CreerUnComptActivity extends AppCompatActivity {
                 });
 
 
-    }
 
+
+    }
     private void addPatient(){
+        String imgUrl;
         String nom_str = nom.getText().toString();
         String prenom_str = prenom.getText().toString();
         String adresse_str = ville.getText().toString();
         String tel_str = tel.getText().toString();
         String situation = situations.getSelectedItem().toString();
         String date_naisse = naissance.getText().toString();
+        imgUrl = addPhotoProfile(mail_str,"photos_profile_patient");
 
 
         Patient pat = new Patient(nom_str,prenom_str, date_naisse,situation,mail_str,tel_str,adresse_str);
-
+        pat.setPhotoUrl(imgUrl);
 
         db.collection("patients").add(pat).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG,"DocumentSnapshot added with ID: " + documentReference.getId());
-                startActivity(new Intent(CreerUnComptActivity.this,MainActivity.class));
+                startActivity(new Intent(CreerUnComptActivity.this,LoginActivity.class));
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
@@ -225,6 +320,7 @@ public class CreerUnComptActivity extends AppCompatActivity {
                         Log.w("Error adding document", e);
                     }
                 });
+
 
 
     }
@@ -239,4 +335,22 @@ public class CreerUnComptActivity extends AppCompatActivity {
 
     }
 
+    public void choisirImage(View view) {
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode== RESULT_OK && data != null
+                && data.getData() !=null){
+            imageUri = data.getData();
+            img_mini.setImageURI(imageUri);
+
+        }
+    }
 }

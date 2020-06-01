@@ -196,58 +196,6 @@
                     android:text="@string/rdv"/>
             </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/ll_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/grid_bg"
-                android:layout_margin="12dp"
-                android:orientation="vertical"
-                >
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
 
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/darkOffi"
-                    android:text="@string/rdv"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/grid_bg"
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                android:layout_gravity="center">
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:layout_gravity="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/darkOffi"
-                    android:text="@string/rdv"/>
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -71,8 +71,6 @@ public class ListMedecin extends AppCompatActivity {
         }
         medecinListAdapter.filterList(medecins_filter);
     }
-
-
     private void iniMedecinList(){
         db.collection("medecins").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -114,6 +112,8 @@ public class ListMedecin extends AppCompatActivity {
 
 
     }
+
+
 
 
 }

@@ -2,6 +2,7 @@ package com.example.healthcare;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,12 +44,16 @@ public class MedecinListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
 
     }
 
+    public Uri getMedUri(String nom_profile){
+        return  null;
+    }
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
 
         holder = (ViewHolder) holder;
         Log.d(TAG,"OnBindViewHolder called");
 
+        ((ViewHolder) holder).image_med.setImageURI(getMedUri(medecins.get(position).getEmail()));
         ((ViewHolder) holder).specialite_ville.setText(medecins.get(position).getSpecialite() +"-" + medecins.get(position).getAdresse());
         ((ViewHolder) holder).nom_prenom.setText("Dr "+medecins.get(position).getNom() + " " + medecins.get(position).getPrenom());
         ((ViewHolder) holder).plus.setOnClickListener(new View.OnClickListener() {
