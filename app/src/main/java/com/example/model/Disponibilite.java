@@ -4,10 +4,14 @@ public class Disponibilite {
 
     String heure1;
     String heure2;
+    String jour;
 
-    public Disponibilite(String heure1, String heure2) {
+
+
+    public Disponibilite(String heure1, String heure2, String jour) {
         this.heure1 = heure1;
         this.heure2 = heure2;
+        this.jour =jour;
     }
     public Disponibilite() {
         this.heure1 = "";
@@ -28,5 +32,12 @@ public class Disponibilite {
 
     public void setHeure2(String heure2) {
         this.heure2 = heure2;
+    }
+    public String getJour() {
+        return jour;
+    }
+
+    public void setJour(String jour) {
+        this.jour = jour;
     }
 }

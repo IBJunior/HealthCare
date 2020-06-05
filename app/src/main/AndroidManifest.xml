@@ -12,23 +12,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GestionDispoActivity"></activity>
-        <activity android:name=".EspaceMedecinActivity" />
+        <activity android:name=".ListDispoActi"></activity>
+        <activity android:name=".CreerDispoAct" />
+        <activity android:name=".GestionDispoActivity" />
+        <activity android:name=".EspaceMedecinActivity"></activity>
         <activity android:name=".PriseRdv" />
         <activity android:name=".EspacePatientActivity" />
         <activity android:name=".DetailMedecin" />
         <activity android:name=".ListMedecin" />
-        <activity android:name="com.example.login.CreerUnComptActivity"></activity>
-        <activity android:name="com.example.login.LoginActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:label="Health+">
+        <activity android:name="com.example.login.CreerUnComptActivity" />
+        <activity android:name="com.example.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="Health+"></activity>
     </application>
 
 </manifest>
