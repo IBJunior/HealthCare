@@ -29,6 +29,25 @@
     <string name="img_profile">Choisir une image</string>
     <string name="esp_med">Espace Médecin</string>
     <string name="disp">Disponibilité</string>
+    <string name="creerDispo">1. Créer une disponibilité</string>
+    <string name="listDispo">"2. Mes disponibilités "</string>
+    <string name="gstDispo">Gestion des disponibilités</string>
+    <string name="jourDispo">Choisir un jour</string>
+    <string name="h1">Heure 1 :</string>
+    <string name="h2">Heure 2 :</string>
+    <string name="creeDispo">Création d\'une disponibilité</string>
+    <string name="crDispo">Créer</string>
+    <string name="plg1">Plage 1 :</string>
+    <string name="debut">Heure début:</string>
+    <string name="fin">Heure fin:</string>
+    <string name="plg2">Plage 2 :</string>
+    <string name="supp">Supprimer</string>
+    <string name="modf">Modifier</string>
+    <string name="jr">Jour</string>
+    <string name="del">Vous allez supprimer la disponibilité :</string>
+    <string name="conf">Confirmer</string>
+    <string name="anul">Annuler</string>
+    <string name="updte">Vous êtes entrai de modifier la disponibilité :</string>
 
     <string-array name="situations">
 

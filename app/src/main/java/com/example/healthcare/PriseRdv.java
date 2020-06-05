@@ -66,10 +66,10 @@ public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDa
             @Override
             public void onClick(View v) {
                 DialogFragment choixDate = new ChoixDateFragment();
+                choixDate.show(getSupportFragmentManager(),"Choix date");
                 if(reponse.getVisibility()== View.VISIBLE){
                     reponse.setVisibility(View.GONE);
                 }
-                choixDate.show(getSupportFragmentManager(),"Choix date");
                 if(choix_heure_rdv.getVisibility() == View.VISIBLE){
                     choix_heure_rdv.setVisibility(View.GONE);
                 }

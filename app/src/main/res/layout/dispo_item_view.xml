@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:elevation="2dp"
+    android:layout_margin="5dp"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#000"
+                android:textStyle="bold"
+                android:text="@string/jr"/>
+            <TextView
+                android:id="@+id/jour_dispo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#000"
+                android:text="PlaceHolder"/>
+        </LinearLayout>
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_margin="5dp"
+           android:orientation="vertical">
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textSize="16sp"
+               android:textColor="#000"
+               android:textStyle="bold"
+               android:text="@string/hr"/>
+           <TextView
+               android:id="@+id/heure_dispo"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+
+               android:textColor="#000"
+               android:text="17h00-18h08"/>
+       </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/modifier"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@string/modf"
+            android:layout_marginEnd="10dp"
+            android:background="#32CD32"/>
+        <Button
+            android:id="@+id/supprimer"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="#DC143C"
+            android:text="@string/supp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
