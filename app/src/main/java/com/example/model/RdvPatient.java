@@ -11,6 +11,13 @@ public class RdvPatient {
         this.heure = heure;
         this.medecin = medecin;
     }
+    public RdvPatient() {
+        this.date = "date";
+        this.heure = "heure";
+        Medecin medecin = new Medecin();
+        medecin.setEmail("ali@gmail.com");
+        this.medecin = medecin;
+    }
 
     public String getDate() {
         return date;

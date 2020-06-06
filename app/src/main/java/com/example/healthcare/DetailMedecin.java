@@ -27,6 +27,7 @@ public class DetailMedecin extends AppCompatActivity {
 
         medecin = intent.getParcelableExtra("medecin");
 
+        final String mail_pat = intent.getStringExtra("mail_pat");
         imageView = (ImageView) findViewById(R.id.image_med);
         nom_prenom = (TextView) findViewById(R.id.nom_prenom);
         tel = (TextView) findViewById(R.id.tel);
@@ -41,6 +42,7 @@ public class DetailMedecin extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(DetailMedecin.this,PriseRdv.class);
                 i.putExtra("medecin",medecin);
+                i.putExtra("mail_pat",mail_pat);
                 startActivity(i);
             }
         });
