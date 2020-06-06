@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ListDispoActi">
+    android:layout_height="match_parent"
+    tools:context=".ConsultationsMedActi">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/esp_med"
+                android:text="Espace Patient"
                 android:textColor="@color/darkOffi"
                 android:textStyle="bold"
                 android:textSize="18sp"
@@ -57,11 +57,8 @@
 
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_dispo_recycle"
+        android:id="@+id/med_consultations"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="4dp" />
-
-
+        android:padding="15dp"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

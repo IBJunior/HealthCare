@@ -48,6 +48,13 @@
     <string name="conf">Confirmer</string>
     <string name="anul">Annuler</string>
     <string name="updte">Vous êtes entrai de modifier la disponibilité :</string>
+    <string name="def_consult">Nouvelle Consultation</string>
+    <string name="mes_consult">Mes Consultations</string>
+    <string name="iss_consult">Issue</string>
+    <string name="cree">Creer</string>
+    <string name="rdvavc">Rendez-vous avec</string>
+    <string name="consl">Consulter</string>
+    <string name="msrdv">Mes RDV</string>
 
     <string-array name="situations">
 

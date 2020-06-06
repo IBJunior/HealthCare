@@ -27,10 +27,29 @@ public class MedecinListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
     private static final String TAG = "MedecinListAdapter";
     private ArrayList<Medecin> medecins = new ArrayList<>();
     private Context mcontext;
+    private  String nom_pat,mail_pat;
+
+    public String getNom_pat() {
+        return nom_pat;
+    }
+
+    public void setNom_pat(String nom_pat) {
+        this.nom_pat = nom_pat;
+    }
+
+    public String getMail_pat() {
+        return mail_pat;
+    }
+
+    public void setMail_pat(String mail_pat) {
+        this.mail_pat = mail_pat;
+    }
 
     public MedecinListAdapter(Context context, ArrayList<Medecin> medecins){
         this.mcontext = context;
         this.medecins = medecins;
+        this.mail_pat ="";
+        this.nom_pat = "";
 
     }
 
@@ -63,6 +82,7 @@ public class MedecinListAdapter extends  RecyclerView.Adapter<RecyclerView.ViewH
                 Intent intent = new Intent(mcontext, DetailMedecin.class);
                 Log.d(TAG, ""+ medecins.get(position).toString());
                 intent.putExtra("medecin", medecins.get(position));
+                intent.putExtra("mail_pat",mail_pat);
                 mcontext.startActivity(intent);
 
             }

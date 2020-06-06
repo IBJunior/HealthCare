@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,7 +13,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -32,6 +35,9 @@ public class ListMedecin extends AppCompatActivity {
     MedecinListAdapter medecinListAdapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     EditText search;
+    String mail_pat;
+    ImageView home;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,18 @@ public class ListMedecin extends AppCompatActivity {
         setContentView(R.layout.activity_list_medecin);
         Log.d(TAG,"Oncreate Started");
         search = (EditText) findViewById(R.id.search);
+        home = findViewById(R.id.home);
+        Intent i = getIntent();
+        mail_pat = i.getStringExtra("mail_pat");
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ListMedecin.this,EspacePatientActivity.class);
+                intent.putExtra("mail_pat",mail_pat);
+                startActivity(intent);
+            }
+        });
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -57,6 +75,7 @@ public class ListMedecin extends AppCompatActivity {
                 filter(s.toString());
             }
         });
+
         iniMedecinList();
 
     }
@@ -107,6 +126,7 @@ public class ListMedecin extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.medecin_recycler);
         medecinListAdapter = new MedecinListAdapter(this,medecins);
+        medecinListAdapter.setMail_pat(mail_pat);
         recyclerView.setAdapter(medecinListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
