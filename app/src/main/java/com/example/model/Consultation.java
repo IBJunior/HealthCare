@@ -1,6 +1,9 @@
 package com.example.model;
 
-public class Consultation {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Consultation implements Parcelable {
 
     String issue;
     String NomPatient;
@@ -37,5 +40,15 @@ public class Consultation {
 
     public void setNomMedecin(String nomMedecin) {
         NomMedecin = nomMedecin;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

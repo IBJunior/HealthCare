@@ -1,6 +1,9 @@
 package com.example.model;
 
-public class RdvPatient {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class RdvPatient implements Parcelable {
 
     String date;
     String heure;
@@ -41,5 +44,15 @@ public class RdvPatient {
 
     public void setMedecin(Medecin medecin) {
         this.medecin = medecin;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
     }
 }

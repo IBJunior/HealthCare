@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 public class EspacePatientActivity extends AppCompatActivity {
 
-    ImageView search_med,consult_pat,mes_rdv;
+    ImageView search_med,consult_pat,mes_rdv,nv_rdc;
     String mail_pat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +19,15 @@ public class EspacePatientActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         mail_pat = intent.getStringExtra("mail_pat");
         mes_rdv = findViewById(R.id.mes_rdv);
+        nv_rdc = findViewById(R.id.nv_rdc);
+        nv_rdc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(EspacePatientActivity.this,ListMedecin.class);
+                intent1.putExtra("mail_pat",mail_pat);
+                startActivity(intent1);
+            }
+        });
         mes_rdv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,8 +40,9 @@ public class EspacePatientActivity extends AppCompatActivity {
         consult_pat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(EspacePatientActivity.this, ConsultationsMedActi.class);
+                Intent i = new Intent(EspacePatientActivity.this, ConsultationsPatientAct.class);
                 i.putExtra("mail_pat",mail_pat);
+                startActivity(i);
             }
         });
         search_med = (ImageView) findViewById(R.id.search_med);

@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RdvPatientList"></activity>
+        <activity android:name=".DetailPatient"></activity>
+        <activity android:name=".PatientListActi" />
+        <activity android:name=".CreerConsultationAct" />
+        <activity android:name=".RdvPatientList" />
         <activity android:name=".RdvMedList" />
         <activity android:name=".ConsultationsPatientAct" />
         <activity android:name=".GestionConsultations" />

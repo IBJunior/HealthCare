@@ -39,12 +39,14 @@ public class RdvMedList extends AppCompatActivity {
         initListRdv();
         Intent i = getIntent();
         mail_med = i.getStringExtra("mail_med");
+        Log.d(TAG,"MAIL_MED_ :" + mail_med);
         listRdvsMed = findViewById(R.id.list_rdv_med);
         listRdvsMed.setHasFixedSize(true);
         rdvMedAdapter = new RdvMedAdapter(rdvMedecins,this);
         layoutManager =  new LinearLayoutManager(this);
         listRdvsMed.setLayoutManager(layoutManager);
         listRdvsMed.setAdapter(rdvMedAdapter);
+        rdvMedAdapter.setMail_med(mail_med);
 
 
     }

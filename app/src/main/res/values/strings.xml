@@ -55,6 +55,11 @@
     <string name="rdvavc">Rendez-vous avec</string>
     <string name="consl">Consulter</string>
     <string name="msrdv">Mes RDV</string>
+    <string name="consul">Ecrire votre consultation</string>
+    <string name="mail_pat">Mail Patient :</string>
+    <string name="date">Date :</string>
+    <string name="mail_med">Mail Médecin :</string>
+    <string name="sit">situarion :</string>
 
     <string-array name="situations">
 
