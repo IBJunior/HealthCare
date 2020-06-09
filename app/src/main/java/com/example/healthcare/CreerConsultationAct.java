@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +29,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CreerConsultationAct extends AppCompatActivity {
 
@@ -39,11 +48,18 @@ public class CreerConsultationAct extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "CreerConsultationAct";
     TextView deconnect;
+    FirebaseStorage storage= FirebaseStorage.getInstance();
+    StorageReference stRef;
+    CircleImageView photo_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creer_consultation);
+        Intent intent = getIntent();
+
+        rdv = intent.getParcelableExtra("rdv");
+        mail_med = intent.getStringExtra("mail_med");
 
         home = findViewById(R.id.home);
         home.setOnClickListener(new View.OnClickListener() {
@@ -65,10 +81,9 @@ public class CreerConsultationAct extends AppCompatActivity {
 
             }
         });
-        Intent intent = getIntent();
+        photo_profile = findViewById(R.id.photo_profile);
+        initPhotoProfile();
 
-        rdv = intent.getParcelableExtra("rdv");
-        mail_med = intent.getStringExtra("mail_med");
         issue_consult = findViewById(R.id.issue_consult);
         valide_consult = findViewById(R.id.valide_consult);
 
@@ -161,5 +176,27 @@ public class CreerConsultationAct extends AppCompatActivity {
           }
 
       }
+    }
+    private  void  initPhotoProfile(){
+        stRef = storage.getReferenceFromUrl("gs://healthcare-1dab0.appspot.com").child("photos_profile_medecin/" + mail_med +".jpg");
+        Log.d(TAG,"IMAGE_REF : " + stRef.toString());
+        try {
+
+            final File localeFile = File.createTempFile("images","jpg");
+            stRef.getFile(localeFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localeFile.getAbsolutePath());
+                    photo_profile.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG,"IMAGE_PP_FAILED");
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

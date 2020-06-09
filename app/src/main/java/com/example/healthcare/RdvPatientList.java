@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,8 +26,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RdvPatientList extends AppCompatActivity {
     RecyclerView list_pat_rdv;
@@ -33,6 +41,9 @@ public class RdvPatientList extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     String mail_pat;
     TextView deconnect;
+    CircleImageView photo_profile;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference stRef;
     ImageView home;
     private ArrayList<RdvPatient> rdvPatients = new ArrayList<>();
     private static final String TAG = "RdvPatientList";
@@ -56,6 +67,8 @@ public class RdvPatientList extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        photo_profile = findViewById(R.id.photo_profile);
+        initPhotoProfile();
         deconnect = findViewById(R.id.deconnexion);
         deconnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,5 +131,27 @@ public class RdvPatientList extends AppCompatActivity {
         });
 
 
+    }
+    private  void  initPhotoProfile(){
+        stRef = storage.getReferenceFromUrl("gs://healthcare-1dab0.appspot.com").child("photos_profile_patient/" + mail_pat +".jpg");
+        Log.d(TAG,"IMAGE_REF : " + stRef.toString());
+        try {
+
+            final File localeFile = File.createTempFile("images","jpg");
+            stRef.getFile(localeFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localeFile.getAbsolutePath());
+                    photo_profile.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG,"IMAGE_PP_FAILED");
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

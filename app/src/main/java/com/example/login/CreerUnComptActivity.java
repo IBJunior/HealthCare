@@ -277,8 +277,9 @@ public class CreerUnComptActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG,"DocumentSnapshot added with ID: " + documentReference.getId());
+                Toast.makeText(CreerUnComptActivity.this,"Compte créé avec Succès veuillez vous connectez!",Toast.LENGTH_LONG).show();
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(CreerUnComptActivity.this,LoginActivity.class);
-                intent.putExtra("Welcome","Compte bien crée connectez vous pour accéder à votre espace");
                 startActivity(intent);
             }
         })
@@ -311,6 +312,8 @@ public class CreerUnComptActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG,"DocumentSnapshot added with ID: " + documentReference.getId());
+                Toast.makeText(CreerUnComptActivity.this,"Compte créé avec Succès veuillez vous connectez!",Toast.LENGTH_LONG).show();
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(CreerUnComptActivity.this,LoginActivity.class));
             }
         })

@@ -7,6 +7,8 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,10 +37,16 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
@@ -57,7 +65,9 @@ public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDa
     TextView text_prdv;
     boolean confirme_rdv = false;
     Disponibilite dispo = new Disponibilite();
-
+    CircleImageView photo_profile;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference stRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +90,8 @@ public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDa
                 startActivity(intent);
             }
         });
+        photo_profile = findViewById(R.id.photo_profile);
+        initPhotoProfile();
         deconnect = findViewById(R.id.deconnexion);
         deconnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -372,5 +384,28 @@ public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDa
 
 
        }
+    }
+
+    private  void  initPhotoProfile(){
+        stRef = storage.getReferenceFromUrl("gs://healthcare-1dab0.appspot.com").child("photos_profile_patient/" + mail_pat +".jpg");
+        Log.d(TAG,"IMAGE_REF : " + stRef.toString());
+        try {
+
+            final File localeFile = File.createTempFile("images","jpg");
+            stRef.getFile(localeFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localeFile.getAbsolutePath());
+                    photo_profile.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG,"IMAGE_PP_FAILED");
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

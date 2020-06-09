@@ -160,13 +160,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="35dp"
+            android:paddingStart="40dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/photo_profile"
                 android:layout_width="wrap_content"
                 android:onClick="choisirImage"
+                android:textAllCaps="false"
                 android:layout_height="wrap_content"
                 android:text="@string/img_profile"/>
             <ImageView

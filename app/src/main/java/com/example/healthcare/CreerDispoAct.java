@@ -7,6 +7,8 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,15 +23,23 @@ import com.example.login.LoginActivity;
 import com.example.model.Disponibilite;
 import com.example.model.Medecin;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CreerDispoAct extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
@@ -46,11 +56,16 @@ public class CreerDispoAct extends AppCompatActivity implements DatePickerDialog
     TextView deconnect;
     Disponibilite dispo;
     boolean heure_dbt_1_bool,heure_dbt_2_bool,heure_fin_1_bool,heure_fin_2_bool;
+    CircleImageView photo_profile;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference stRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creer_dispo);
+        Intent i = getIntent();
+        mail_med = i.getStringExtra("mail_med");
         home = findViewById(R.id.home);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +86,8 @@ public class CreerDispoAct extends AppCompatActivity implements DatePickerDialog
 
             }
         });
+        photo_profile = findViewById(R.id.photo_profile);
+        initPhotoProfile();
 
         chjourDispo = findViewById(R.id.chjourDispo);
         jourDispo = findViewById(R.id.jourDispo);
@@ -89,8 +106,7 @@ public class CreerDispoAct extends AppCompatActivity implements DatePickerDialog
         heure_dbt_2_bool=false;
         heure_fin_1_bool=false;
         heure_fin_2_bool=false;
-        Intent i = getIntent();
-        mail_med = i.getStringExtra("mail_med");
+
 
         creer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,6 +249,27 @@ public class CreerDispoAct extends AppCompatActivity implements DatePickerDialog
 
     }
 
+    private  void  initPhotoProfile(){
+        stRef = storage.getReferenceFromUrl("gs://healthcare-1dab0.appspot.com").child("photos_profile_medecin/" + mail_med +".jpg");
+        Log.d(TAG,"IMAGE_REF : " + stRef.toString());
+        try {
 
+            final File localeFile = File.createTempFile("images","jpg");
+            stRef.getFile(localeFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(localeFile.getAbsolutePath());
+                    photo_profile.setImageBitmap(bitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG,"IMAGE_PP_FAILED");
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }

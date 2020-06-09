@@ -9,7 +9,7 @@
     tools:context=".EspacePatientActivity">
 
     <include
-        layout="@layout/entete_app"/>
+        layout="@layout/entete_app_patient"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
