@@ -119,10 +119,9 @@ public class RdvMedAdapter extends  RecyclerView.Adapter<RdvMedAdapter.RdvMedHol
         final RdvMedecin rdvMedecin = rdvMedecins.get(position);
 
 
-        holder.nom_patient.setText(rdvMedecin.getPatient().getNom() + "Email : " + rdvMedecin.getPatient().getEmail());
+        holder.nom_patient.setText(rdvMedecin.getPatient().getEmail());
         holder.heure_rdv.setText(rdvMedecin.getHeure());
-        String str = holder.jour_rdv.getText().toString();
-        holder.jour_rdv.setText(str + " " + rdvMedecin.getDate());
+        holder.jour_rdv.setText(rdvMedecin.getDate());
         holder.consulter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,7 +139,10 @@ public class RdvMedAdapter extends  RecyclerView.Adapter<RdvMedAdapter.RdvMedHol
             public void onClick(View v) {
                 Log.d(TAG, "annuler_Clicked");
                 annulerRdvMed(rdvMedecin);
-                Toast.makeText(mcontext,"annuler_Clicked",Toast.LENGTH_LONG).show();
+                Toast.makeText(mcontext,"RDV annulé",Toast.LENGTH_LONG).show();
+                rdvMedecins.remove(rdvMedecin);
+                notifyDataSetChanged();
+
             }
         });
 

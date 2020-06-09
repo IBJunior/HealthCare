@@ -2,42 +2,21 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#fff"
+    android:layout_margin="8dp"
+    android:elevation="2dp"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
         android:layout_height="wrap_content"
+        android:background="@color/darkOffi"
+        android:padding="5dp"
         android:orientation="horizontal">
         <TextView
-            android:text="@string/iss_consult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/issue_consult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-        <TextView
-            android:text="@string/mail_med"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/mail_med"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-        <TextView
-            android:text="@string/date"
+            android:text="@string/con"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
@@ -45,4 +24,45 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/iss_consult"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/darkOffi"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/issue_consult"
+            android:layout_width="300dp"
+            android:layout_gravity="left"
+            android:textColor="@color/darkOffi"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/med"
+            android:layout_width="wrap_content"
+            android:textColor="@color/darkOffi"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="5dp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/mail_med"
+            android:layout_width="wrap_content"
+            android:textColor="@color/darkOffi"
+            android:textSize="16sp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
 </LinearLayout>

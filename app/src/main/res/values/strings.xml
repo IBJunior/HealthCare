@@ -25,7 +25,7 @@
     <string name="chdate">Choisir une date</string>
     <string name="chHeure">choisir une heure</string>
     <string name="hr">Heure :</string>
-    <string name="vfdispo">Vérifier disponibilité</string>
+    <string name="vfdispo">Vérifier</string>
     <string name="img_profile">Choisir une image</string>
     <string name="esp_med">Espace Médecin</string>
     <string name="disp">Disponibilité</string>
@@ -43,7 +43,7 @@
     <string name="plg2">Plage 2 :</string>
     <string name="supp">Supprimer</string>
     <string name="modf">Modifier</string>
-    <string name="jr">Jour</string>
+    <string name="jr">Jour :</string>
     <string name="del">Vous allez supprimer la disponibilité :</string>
     <string name="conf">Confirmer</string>
     <string name="anul">Annuler</string>
@@ -52,14 +52,21 @@
     <string name="mes_consult">Mes Consultations</string>
     <string name="iss_consult">Issue</string>
     <string name="cree">Creer</string>
-    <string name="rdvavc">Rendez-vous avec</string>
+    <string name="rdvavc">Rendez-vous avec :</string>
     <string name="consl">Consulter</string>
     <string name="msrdv">Mes RDV</string>
     <string name="consul">Ecrire votre consultation</string>
     <string name="mail_pat">Mail Patient :</string>
     <string name="date">Date :</string>
     <string name="mail_med">Mail Médecin :</string>
-    <string name="sit">situarion :</string>
+    <string name="sit">Situarion :</string>
+    <string name="acc">Accueil</string>
+    <string name="prise_rdv">"Vous êtes entrain de <br/> prendre RDV avec : "</string>
+    <string name="mes_rdv">Mes rendez-vous</string>
+    <string name="con">Consultation du :</string>
+    <string name="ch">choisir</string>
+    <string name="mes_dispo">"Mes disponibilités "</string>
+    <string name="pat_cons">Patients consultés</string>
 
     <string-array name="situations">
 

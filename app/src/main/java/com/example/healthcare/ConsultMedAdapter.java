@@ -38,7 +38,8 @@ public class ConsultMedAdapter extends  RecyclerView.Adapter<ConsultMedAdapter.C
         Consultation c = cons.get(position);
 
         holder.issue_consult.setText(c.getIssue());
-        holder.mail_pat.setText(c.getNomMedecin());
+        holder.mail_pat.setText(c.getNomPatient());
+        holder.date_consult.setText(c.getDate());
 
     }
 

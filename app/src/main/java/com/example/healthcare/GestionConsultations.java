@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.login.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class GestionConsultations extends AppCompatActivity {
 
-    TextView lis_consult,def_consult;
+    TextView lis_consult,def_consult,deconnect;
     String mail_med;
+    ImageView home;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,27 @@ public class GestionConsultations extends AppCompatActivity {
                 Intent intent = new Intent(GestionConsultations.this,RdvMedList.class);
                 intent.putExtra("mail_med",mail_med);
                 startActivity(intent);
+            }
+        });
+
+        home = findViewById(R.id.home);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GestionConsultations.this,EspaceMedecinActivity.class);
+                intent.putExtra("mail_med",mail_med);
+                startActivity(intent);
+            }
+        });
+        deconnect = findViewById(R.id.deconnexion);
+        deconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(GestionConsultations.this, LoginActivity.class));
+
             }
         });
 

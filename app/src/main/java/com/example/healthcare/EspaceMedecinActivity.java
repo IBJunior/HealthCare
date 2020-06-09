@@ -9,11 +9,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.login.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class EspaceMedecinActivity extends AppCompatActivity {
 
     String mail_med;
     ImageView dispo,consults,mes_rdv,patients;
     private static final String TAG = "EspaceMedecinActivity";
+    TextView  deconnect;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +27,25 @@ public class EspaceMedecinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_espace_medecin);
         consults = findViewById(R.id.consults);
 
-        final Intent i = getIntent();
+        Intent i = getIntent();
         patients = findViewById(R.id.patients);
         patients.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(EspaceMedecinActivity.this,PatientListActi.class);
-                i.putExtra("mail_med",mail_med);
-                startActivity(i);
+                Intent intent = new Intent(EspaceMedecinActivity.this,PatientListActi.class);
+                intent.putExtra("mail_med",mail_med);
+                startActivity(intent);
+            }
+        });
+        deconnect = findViewById(R.id.deconnexion);
+        deconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(EspaceMedecinActivity.this, LoginActivity.class));
+
             }
         });
 

@@ -8,13 +8,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.login.LoginActivity;
 import com.example.model.Patient;
 import com.example.model.RdvPatient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -26,6 +32,8 @@ public class RdvPatientList extends AppCompatActivity {
     RdvPatientAdapter adapter;
     RecyclerView.LayoutManager layoutManager;
     String mail_pat;
+    TextView deconnect;
+    ImageView home;
     private ArrayList<RdvPatient> rdvPatients = new ArrayList<>();
     private static final String TAG = "RdvPatientList";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -39,6 +47,26 @@ public class RdvPatientList extends AppCompatActivity {
 
         mail_pat = i.getStringExtra("mail_pat");
         initRdvsPatient();
+        home = findViewById(R.id.home);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RdvPatientList.this,EspacePatientActivity.class);
+                intent.putExtra("mail_pat",mail_pat);
+                startActivity(intent);
+            }
+        });
+        deconnect = findViewById(R.id.deconnexion);
+        deconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(RdvPatientList.this, LoginActivity.class));
+
+            }
+        });
 
         list_pat_rdv = findViewById(R.id.list_rdv_pat);
         list_pat_rdv.setHasFixedSize(true);
@@ -69,6 +97,12 @@ public class RdvPatientList extends AppCompatActivity {
                                         adapter.notifyDataSetChanged();
                                     }
                                 }
+                                else {
+                                    if (rdvPatients.isEmpty()){
+                                        Toast.makeText(RdvPatientList.this,"Vous n'avez aucun rdv !", Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
 
                             }
                         });
@@ -82,6 +116,7 @@ public class RdvPatientList extends AppCompatActivity {
 
             }
         });
+
 
     }
 }

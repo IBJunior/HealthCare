@@ -134,7 +134,7 @@ public class DispoAdapter extends RecyclerView.Adapter<DispoAdapter.DipsoViewHol
 
     }
     private  void update_dispo(Disponibilite dispo){
-        DocumentReference reference =  db.collection(path).document(del_ref_doc);
+        DocumentReference reference =  db.collection(getPath()).document(del_ref_doc);
 
        reference.update(
                "jour",dispo.getJour(),
@@ -153,12 +153,12 @@ public class DispoAdapter extends RecyclerView.Adapter<DispoAdapter.DipsoViewHol
        });
     }
     @Override
-    public void onBindViewHolder(@NonNull DipsoViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final DipsoViewHolder holder, int position) {
         final Disponibilite dispo =  dispos.get(position);
 
 
 
-        holder.heure_dispo.setText(dispo.getHeure1() + "\n" + dispo.getHeure2());
+        holder.heure_dispo.setText(dispo.getHeure1() + " et " + dispo.getHeure2());
         holder.jour_dispo.setText(dispo.getJour());
         holder.supprimer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,14 +166,11 @@ public class DispoAdapter extends RecyclerView.Adapter<DispoAdapter.DipsoViewHol
 
                 dialog.setContentView(R.layout.suppr_dispo_dialog);
                 jour = (TextView) dialog.findViewById(R.id.jour);
-                String jour_str = jour.getText().toString();
-                jour.setText(jour_str + " : " + dispo.getJour());
+                jour.setText(dispo.getJour());
                 plage1 = dialog.findViewById(R.id.plage_1);
-                String plg1_str = plage1.getText().toString();
-                plage1.setText(plg1_str + " : " + dispo.getHeure1());
+                plage1.setText(dispo.getHeure1());
                 plage2 = dialog.findViewById(R.id.plage_2);
-                String plg2_str = plage2.getText().toString();
-                plage2.setText(plg1_str + " : " + dispo.getHeure1());
+                plage2.setText(dispo.getHeure1());
                 annul_suppr = dialog.findViewById(R.id.annul_suppr);
                 conf_suppr = dialog.findViewById(R.id.conf_suppr);
                 annul_suppr.setOnClickListener(new View.OnClickListener() {
@@ -185,9 +182,12 @@ public class DispoAdapter extends RecyclerView.Adapter<DispoAdapter.DipsoViewHol
                 conf_suppr.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(dialog.getContext(),"Dispo suppr", Toast.LENGTH_LONG).show();
+                        Toast.makeText(dialog.getContext(),"Dispo supprimé", Toast.LENGTH_LONG).show();
                         Log.d(TAG,"REF : " +path);
                         del_dispo(dispo);
+                        dispos.remove(dispo);
+                        notifyDataSetChanged();
+
                     }
                 });
                 dialog.show();
@@ -225,6 +225,7 @@ public class DispoAdapter extends RecyclerView.Adapter<DispoAdapter.DipsoViewHol
                         dsp.setHeure1(plage1_edit.getText().toString());
                         dsp.setHeure2(plage2_edit.getText().toString());
                         update_dispo(dsp);
+                        holder.heure_dispo.setText(dsp.getHeure1() + " et " + dsp.getHeure2());
                     }
                 });
                 dialog.show();

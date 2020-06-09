@@ -7,193 +7,175 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".CreerDispoAct">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/officialColor"
-        android:padding="15dp"
-        android:orientation="horizontal">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/esp_med"
-                android:textColor="@color/darkOffi"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_marginBottom="5dp" />
-            <ImageView
-                android:id="@+id/home"
-                android:layout_marginTop="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_home"/>
-        </LinearLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:orientation="vertical">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_launcher_background"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:textSize="12sp"
-                    android:layout_marginTop="5dp"
-                    android:text="Déconnexion"/>
-            </LinearLayout>
-        </RelativeLayout>
-
-    </LinearLayout>
+    <include
+        layout="@layout/entete_app"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/creeDispo"
         android:layout_gravity="center"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
         android:textColor="@color/darkOffi"
         android:textSize="18sp"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
+        android:layout_gravity="left"
+        android:padding="10dp"
+
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/chJourDispo"
+            android:id="@+id/jourDispo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:textSize="16sp"
-            android:text="@string/jourDispo"/>
+            android:textColor="@color/darkOffi"
+            android:textStyle="bold"
+            android:text="@string/jr"/>
         <TextView
-            android:visibility="gone"
-            android:id="@+id/jourDispo"
+            android:id="@+id/chjourDispo"
             android:textSize="16sp"
+            android:textColor="@color/darkOffi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/jourDispo"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="@string/plg1"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/choix_heure_dbt_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:textSize="16sp"
-                android:text="@string/debut"/>
-            <TextView
-                android:visibility="gone"
-                android:textSize="16sp"
-                android:id="@+id/heure_dbt_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/jourDispo"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/choix_heure_fin_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:textSize="16sp"
-                android:text="@string/fin"/>
-            <TextView
-                android:visibility="gone"
-                android:textSize="16sp"
-                android:id="@+id/heure_fin_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/jourDispo"/>
-        </LinearLayout>
-    </LinearLayout>
     <LinearLayout
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="@string/plg2"/>
-
+        android:padding="10dp"
+        android:orientation="horizontal">
         <LinearLayout
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
             <TextView
-                android:id="@+id/choix_heure_dbt_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:textSize="16sp"
-                android:text="@string/debut"/>
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/heure_dbt_2"
-                android:textSize="16sp"
+                android:textColor="@color/darkOffi"
+                android:textStyle="bold"
+                android:layout_gravity="left"
+                android:layout_marginBottom="10dp"
+                android:text="@string/plg1"
+                android:textSize="16sp" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/jourDispo"/>
+
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/heure_dbt_1"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/darkOffi"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:text="@string/debut"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/choix_heure_dbt_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/ch"
+                    android:textColor="@color/darkOffi"
+                    android:textSize="16sp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/heure_fin_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/darkOffi"
+                    android:textStyle="bold"
+                    android:text="@string/fin"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/choix_heure_fin_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ch"
+                    android:textColor="@color/darkOffi"
+                    android:textSize="16sp"
+                    />
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_margin="10dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="15dp"
+            android:orientation="vertical">
             <TextView
-                android:id="@+id/choix_heure_fin_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+                android:textColor="@color/darkOffi"
+                android:textStyle="bold"
+                android:layout_gravity="left"
                 android:textSize="16sp"
-                android:text="@string/fin"/>
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/heure_fin_2"
-                android:textSize="16sp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/plg2"/>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
-                android:text="@string/jourDispo"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/heure_dbt_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/darkOffi"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="@string/debut"/>
+                <TextView
+                    android:id="@+id/choix_heure_dbt_2"
+                    android:textSize="16sp"
+                    android:textColor="@color/darkOffi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ch"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/heure_fin_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/darkOffi"
+                    android:textStyle="bold"
+                    android:text="@string/fin"/>
+                <TextView
+
+                    android:id="@+id/choix_heure_fin_2"
+                    android:textSize="16sp"
+                    android:textColor="@color/darkOffi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ch"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
     <Button
@@ -201,6 +183,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/crDispo"
+        android:background="@color/officialColor"
+        android:textColor="#fff"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"/>
 

@@ -25,6 +25,15 @@ public class PatientAdapter  extends  RecyclerView.Adapter<PatientAdapter.Patien
 
     private ArrayList<Patient> patients = new ArrayList<>();
     private Context mcontext;
+    private String mail_med;
+
+    public String getMail_med() {
+        return mail_med;
+    }
+
+    public void setMail_med(String mail_med) {
+        this.mail_med = mail_med;
+    }
 
     @NonNull
     @Override
@@ -44,6 +53,7 @@ public class PatientAdapter  extends  RecyclerView.Adapter<PatientAdapter.Patien
             public void onClick(View v) {
                 Intent intent = new Intent(mcontext,DetailPatient.class);
                 intent.putExtra("patient",pat);
+                intent.putExtra("mail_med",mail_med);
                 mcontext.startActivity(intent);
             }
         });

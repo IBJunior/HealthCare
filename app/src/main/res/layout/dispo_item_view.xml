@@ -9,18 +9,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
+                android:layout_marginEnd="10dp"
                 android:textColor="#000"
                 android:textStyle="bold"
                 android:text="@string/jr"/>
@@ -33,12 +34,12 @@
                 android:text="PlaceHolder"/>
         </LinearLayout>
        <LinearLayout
-           android:layout_width="wrap_content"
+           android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_margin="5dp"
-           android:orientation="vertical">
+           android:orientation="horizontal">
            <TextView
-               android:layout_width="match_parent"
+               android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:textSize="16sp"
                android:textColor="#000"
@@ -46,7 +47,7 @@
                android:text="@string/hr"/>
            <TextView
                android:id="@+id/heure_dispo"
-               android:layout_width="match_parent"
+               android:layout_width="wrap_content"
                android:layout_height="wrap_content"
 
                android:textColor="#000"
@@ -56,6 +57,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
         <Button
             android:id="@+id/modifier"
@@ -63,12 +65,14 @@
             android:layout_height="30dp"
             android:text="@string/modf"
             android:layout_marginEnd="10dp"
-            android:background="#32CD32"/>
+            android:textColor="#fff"
+            android:background="@color/officialColor"/>
         <Button
             android:id="@+id/supprimer"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:background="#DC143C"
+            android:background="@color/darkOffi"
+            android:textColor="#fff"
             android:text="@string/supp"/>
 
     </LinearLayout>

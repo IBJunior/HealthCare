@@ -17,11 +17,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.login.LoginActivity;
 import com.example.model.Medecin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -37,6 +40,7 @@ public class ListMedecin extends AppCompatActivity {
     EditText search;
     String mail_pat;
     ImageView home;
+    TextView deconnect;
 
 
     @Override
@@ -57,6 +61,17 @@ public class ListMedecin extends AppCompatActivity {
                 Intent intent = new Intent(ListMedecin.this,EspacePatientActivity.class);
                 intent.putExtra("mail_pat",mail_pat);
                 startActivity(intent);
+            }
+        });
+        deconnect = findViewById(R.id.deconnexion);
+        deconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(ListMedecin.this, LoginActivity.class));
+
             }
         });
         search.addTextChangedListener(new TextWatcher() {

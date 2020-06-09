@@ -14,11 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.login.LoginActivity;
 import com.example.model.Disponibilite;
 import com.example.model.Medecin;
 import com.example.model.Patient;
@@ -28,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -41,7 +44,7 @@ public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDa
 
     Medecin medecin;
     String mail_pat;
-    TextView prdv,date,reponse;
+    TextView prdv,date,reponse,deconnect;
     Button checkDispo,confirme;
     Calendar c = Calendar.getInstance();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -49,7 +52,9 @@ public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDa
     Spinner choix_heure_rdv;
     String path;
     ImageView home;
+    LinearLayout date_ll;
     String ref_doc_update;
+    TextView text_prdv;
     boolean confirme_rdv = false;
     Disponibilite dispo = new Disponibilite();
 
@@ -63,7 +68,9 @@ public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDa
 
         home = findViewById(R.id.home);
         Intent i = getIntent();
+        date_ll = findViewById(R.id.date_llayout);
         mail_pat = i.getStringExtra("mail_pat");
+        text_prdv = findViewById(R.id.text_prdv);
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +78,17 @@ public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDa
                 Intent intent = new Intent(PriseRdv.this,EspacePatientActivity.class);
                 intent.putExtra("mail_pat",mail_pat);
                 startActivity(intent);
+            }
+        });
+        deconnect = findViewById(R.id.deconnexion);
+        deconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(PriseRdv.this, LoginActivity.class));
+
             }
         });
 
@@ -82,7 +100,7 @@ public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDa
         checkDispo = findViewById(R.id.checkDispo);
         confirme = findViewById(R.id.confirme);
 
-        prdv.setText("Rendez-vous avec  Dr " + medecin.getNom() +" " + medecin.getPrenom());
+        prdv.setText("Dr  " + medecin.getNom() +" " + medecin.getPrenom());
          choix_heure_rdv = findViewById(R.id.choix_heure_rdv);
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,9 +190,13 @@ public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDa
                                 Disponibilite dsp = d.toObject(Disponibilite.class);
 
                                 if (dsp.getJour().equals(dateChoisi)){
-                                    dispo_found = true;
-                                    dispo = dsp;
-                                    ref_doc_update = d.getId();
+
+                                    if(!(dsp.getHeure1().equals("00h00-00h00") && dsp.getHeure2().equals("00h00-00h00")))
+                                    {
+                                        dispo_found = true;
+                                        dispo = dsp;
+                                        ref_doc_update = d.getId();
+                                    }
                                 }
                             }
 
@@ -276,8 +298,13 @@ public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDa
                    @Override
                    public void onComplete(@NonNull Task<Void> task) {
                        if (task.isSuccessful()){
-                           reponse.setText("Rendez-vous confirmé ! pour " + date.getText());
+                           text_prdv.setVisibility(View.GONE);
+                           prdv.setVisibility(View.GONE);
+                           reponse.setText("Rendez-vous confirmé  pour " + date.getText() + " à " + dispo.getHeure1() + " avec " + prdv.getText() + ".");
                            reponse.setVisibility(View.VISIBLE);
+                           confirme.setVisibility(View.GONE);
+                           choix_heure_rdv.setVisibility(View.GONE);
+                           date_ll.setVisibility(View.GONE);
                            RdvMedecin  rdvMedecin = new RdvMedecin();
                            RdvPatient rdvPatient = new RdvPatient();
 
@@ -314,7 +341,13 @@ public class PriseRdv extends AppCompatActivity implements DatePickerDialog.OnDa
                    public void onComplete(@NonNull Task<Void> task) {
                        if (task.isSuccessful()){
                            Log.d(TAG,"Updated Successfully");
-                           reponse.setText("Votre rendez-vous est confirmé !"+ date.getText());
+                           text_prdv.setVisibility(View.GONE);
+                           prdv.setVisibility(View.GONE);
+                           reponse.setText("Rendez-vous confirmé  pour " + date.getText() + " à " + dispo.getHeure2() + " avec " + prdv.getText() + ".");
+                           reponse.setVisibility(View.VISIBLE);
+                           confirme.setVisibility(View.GONE);
+                           choix_heure_rdv.setVisibility(View.GONE);
+                           date_ll.setVisibility(View.GONE);
                            RdvMedecin  rdvMedecin = new RdvMedecin();
                            RdvPatient rdvPatient = new RdvPatient();
 

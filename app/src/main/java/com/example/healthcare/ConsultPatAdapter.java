@@ -36,6 +36,7 @@ public class ConsultPatAdapter extends  RecyclerView.Adapter<ConsultPatAdapter.C
         Consultation c = cons.get(position);
         holder.issue_consult.setText(c.getIssue());
         holder.mail_med.setText(c.getNomMedecin());
+        holder.date_consult.setText(c.getDate());
     }
 
     @Override

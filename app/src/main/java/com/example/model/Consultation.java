@@ -8,15 +8,46 @@ public class Consultation implements Parcelable {
     String issue;
     String NomPatient;
     String NomMedecin;
+    String date;
 
-    public Consultation(String issue, String nomPatient, String nomMedecin) {
+
+    public Consultation(String issue, String nomPatient, String nomMedecin,String date) {
         this.issue = issue;
         NomPatient = nomPatient;
         NomMedecin = nomMedecin;
+        this.date = date;
     }
+
 
     public Consultation() {
     }
+
+    protected Consultation(Parcel in) {
+        issue = in.readString();
+        NomPatient = in.readString();
+        NomMedecin = in.readString();
+        date = in.readString();
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public static final Creator<Consultation> CREATOR = new Creator<Consultation>() {
+        @Override
+        public Consultation createFromParcel(Parcel in) {
+            return new Consultation(in);
+        }
+
+        @Override
+        public Consultation[] newArray(int size) {
+            return new Consultation[size];
+        }
+    };
 
     public String getIssue() {
         return issue;
@@ -49,6 +80,9 @@ public class Consultation implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(issue);
+        dest.writeString(NomPatient);
+        dest.writeString(NomMedecin);
+        dest.writeString(date);
     }
 }

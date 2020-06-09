@@ -30,15 +30,16 @@
         <activity android:name=".ListMedecin" />
         <activity android:name="com.example.login.CreerUnComptActivity" />
         <activity android:name="com.example.login.LoginActivity">
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="Health+">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:label="Health+" />
     </application>
 
 </manifest>

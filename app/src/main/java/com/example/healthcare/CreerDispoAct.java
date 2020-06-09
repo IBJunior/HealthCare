@@ -12,13 +12,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.example.login.LoginActivity;
 import com.example.model.Disponibilite;
 import com.example.model.Medecin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -30,14 +34,16 @@ import java.util.Calendar;
 public class CreerDispoAct extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
     String mail_med;
-    TextView chJourDispo,jourDispo,heure_dbt_1,heure_dbt_2,heure_fin_1,heure_fin_2,
+    TextView chjourDispo,jourDispo,heure_dbt_1,heure_dbt_2,heure_fin_1,heure_fin_2,
             choix_heure_dbt_1,choix_heure_dbt_2,choix_heure_fin_1,choix_heure_fin_2;
     Button creer;
+    ImageView home;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "CreerDispoAct";
     ArrayList<Medecin> tmp_list = new ArrayList<>();
     Calendar c = Calendar.getInstance();
-    String path, dispo_name;
+    String path;
+    TextView deconnect;
     Disponibilite dispo;
     boolean heure_dbt_1_bool,heure_dbt_2_bool,heure_fin_1_bool,heure_fin_2_bool;
 
@@ -45,8 +51,28 @@ public class CreerDispoAct extends AppCompatActivity implements DatePickerDialog
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creer_dispo);
+        home = findViewById(R.id.home);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(CreerDispoAct.this,EspaceMedecinActivity.class);
+                intent1.putExtra("mail_med",mail_med);
+                startActivity(intent1);
+            }
+        });
+        deconnect = findViewById(R.id.deconnexion);
+        deconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        chJourDispo = findViewById(R.id.chJourDispo);
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(CreerDispoAct.this, LoginActivity.class));
+
+            }
+        });
+
+        chjourDispo = findViewById(R.id.chjourDispo);
         jourDispo = findViewById(R.id.jourDispo);
         choix_heure_dbt_1 = findViewById(R.id.choix_heure_dbt_1);
         choix_heure_dbt_2 = findViewById(R.id.choix_heure_dbt_2);
@@ -73,7 +99,7 @@ public class CreerDispoAct extends AppCompatActivity implements DatePickerDialog
             }
         });
 
-        chJourDispo.setOnClickListener(new View.OnClickListener() {
+        chjourDispo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment choixDate = new ChoixDateFragment();
@@ -123,8 +149,7 @@ public class CreerDispoAct extends AppCompatActivity implements DatePickerDialog
         c.set(Calendar.MONTH,month);
         c.set(Calendar.DAY_OF_MONTH,dayOfMonth);
         String dateChoisie = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        jourDispo.setText(dateChoisie);
-        jourDispo.setVisibility(View.VISIBLE);
+        chjourDispo.setText(dateChoisie);
 
     }
     @Override
@@ -132,23 +157,20 @@ public class CreerDispoAct extends AppCompatActivity implements DatePickerDialog
         c.set(Calendar.HOUR_OF_DAY,hourOfDay);
         c.set(Calendar.MINUTE,minute);
         if(heure_dbt_1_bool){
-            heure_dbt_1.setText(hourOfDay + "h" + minute);
-            heure_dbt_1.setVisibility(View.VISIBLE);
+            choix_heure_dbt_1.setText(hourOfDay + "h" + minute);
+
             heure_dbt_1_bool = false;
         }
         if(heure_dbt_2_bool){
-            heure_dbt_2.setText(hourOfDay + "h" + minute);
-            heure_dbt_2.setVisibility(View.VISIBLE);
+            choix_heure_dbt_2.setText(hourOfDay + "h" + minute);
             heure_dbt_2_bool = false;
         }
         if(heure_fin_1_bool){
-            heure_fin_1.setText(hourOfDay + "h" + minute);
-            heure_fin_1.setVisibility(View.VISIBLE);
+            choix_heure_fin_1.setText(hourOfDay + "h" + minute);
             heure_fin_1_bool = false;
         }
         if(heure_fin_2_bool){
-            heure_fin_2.setText(hourOfDay + "h" + minute);
-            heure_fin_2.setVisibility(View.VISIBLE);
+            choix_heure_fin_2.setText(hourOfDay + "h" + minute);
             heure_fin_2_bool = false;
         }
 
@@ -160,8 +182,8 @@ public class CreerDispoAct extends AppCompatActivity implements DatePickerDialog
     private void creerDisponibilite(){
         //préparation des infos de dispo
         String dateChoisi = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        String heure1 =  heure_dbt_1.getText().toString() + "-" + heure_fin_1.getText().toString();
-        String heure2 =  heure_dbt_2.getText().toString() + "-" + heure_fin_2.getText().toString();
+        String heure1 =  choix_heure_dbt_1.getText().toString() + "-" + choix_heure_fin_1.getText().toString();
+        String heure2 =  choix_heure_dbt_2.getText().toString() + "-" + choix_heure_fin_2.getText().toString();
         dispo = new Disponibilite();
         dispo.setHeure1(heure1);
         dispo.setHeure2(heure2);
@@ -190,6 +212,9 @@ public class CreerDispoAct extends AppCompatActivity implements DatePickerDialog
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()){
                                             Log.d(TAG,"Ajout de dispo réussi");
+                                            Toast.makeText(CreerDispoAct.this,"Disponibilité créée avec succès", Toast.LENGTH_LONG).show();
+
+                                            startActivity(new Intent(CreerDispoAct.this,GestionDispoActivity.class));
                                         }
                                         else {
                                             Log.d(TAG,"Ajout de dispo échoué");

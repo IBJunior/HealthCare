@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,11 +37,18 @@ public class RdvPatientAdapter  extends RecyclerView.Adapter<RdvPatientAdapter.R
 
     @Override
     public void onBindViewHolder(@NonNull RdvPatientHolder holder, int position) {
-        RdvPatient rdv = rdvPatients.get(position);
+        final RdvPatient rdv = rdvPatients.get(position);
         holder.nom_medecin.setText("Dr "+rdv.getMedecin().getNom());
         holder.heure_rdv.setText(rdv.getHeure());
-        String str = holder.jour_rdv.getText().toString();
-        holder.jour_rdv.setText(str + " " + rdv.getDate());
+        holder.jour_rdv.setText(rdv.getDate());
+        holder.annul_rdv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mcontext,"RDV annulé", Toast.LENGTH_LONG).show();
+                rdvPatients.remove(rdv);
+                notifyDataSetChanged();
+            }
+        });
 
         holder.annul_rdv.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,13 +10,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.login.LoginActivity;
 import com.example.model.Consultation;
 import com.example.model.Patient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -30,6 +34,7 @@ public class ConsultationsPatientAct extends AppCompatActivity {
     ConsultPatAdapter adapter;
     RecyclerView list_pat;
     ArrayList<Consultation> cons = new ArrayList<>();
+    TextView deconnect;
     RecyclerView.LayoutManager layoutManager;
     private static final String TAG = "ConsultationsPatientAct";
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -48,6 +53,17 @@ public class ConsultationsPatientAct extends AppCompatActivity {
                 Intent intent = new Intent(ConsultationsPatientAct.this,EspacePatientActivity.class);
                 intent.putExtra("mail_pat",mail_pat);
                 startActivity(intent);
+            }
+        });
+        deconnect = findViewById(R.id.deconnexion);
+        deconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(ConsultationsPatientAct.this, LoginActivity.class));
+
             }
         });
         initListConsultations();
@@ -95,6 +111,9 @@ public class ConsultationsPatientAct extends AppCompatActivity {
                 Log.d(TAG,"Failed_List_pat");
             }
         });
+        if (cons.isEmpty()){
+            Toast.makeText(ConsultationsPatientAct.this,"Vous n'avez pas de consultation pour l'instant", Toast.LENGTH_LONG).show();
+        }
 
     }
 }

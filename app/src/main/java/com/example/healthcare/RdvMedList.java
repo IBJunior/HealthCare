@@ -8,13 +8,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.login.LoginActivity;
 import com.example.model.Medecin;
 import com.example.model.RdvMedecin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -30,6 +36,8 @@ public class RdvMedList extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static final String TAG = "RdvMedList";
+    ImageView home;
+    TextView deconnect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,27 @@ public class RdvMedList extends AppCompatActivity {
         listRdvsMed.setLayoutManager(layoutManager);
         listRdvsMed.setAdapter(rdvMedAdapter);
         rdvMedAdapter.setMail_med(mail_med);
+
+        home = findViewById(R.id.home);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RdvMedList.this,EspaceMedecinActivity.class);
+                intent.putExtra("mail_med",mail_med);
+                startActivity(intent);
+            }
+        });
+        deconnect = findViewById(R.id.deconnexion);
+        deconnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth.getInstance().signOut();
+                finish();
+                startActivity(new Intent(RdvMedList.this, LoginActivity.class));
+
+            }
+        });
 
 
     }
@@ -79,6 +108,9 @@ public class RdvMedList extends AppCompatActivity {
                                 }
                                 else {
                                     Log.d(TAG,"ListRdvNotGet");
+                                    if (rdvMedecins.isEmpty()){
+                                        Toast.makeText(RdvMedList.this,"Vous n'avez aucun rdv actuellement !", Toast.LENGTH_LONG).show();
+                                    }
                                 }
 
                             }
@@ -93,5 +125,7 @@ public class RdvMedList extends AppCompatActivity {
                 Log.d(TAG,"SingleMedNotFound");
             }
         });
+
+
     }
 }
