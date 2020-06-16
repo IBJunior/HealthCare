@@ -115,7 +115,11 @@ public class ListMedecin extends AppCompatActivity {
         ArrayList<Medecin> medecins_filter = new ArrayList<>();
 
         for (Medecin med : medecins){
+
             if (med.getSpecialite().toLowerCase().trim().contains(s) || med.getAdresse().toLowerCase().trim().contains(s)){
+                medecins_filter.add(med);
+            }
+            else if (med.getSpecialite().toUpperCase().trim().contains(s) || med.getAdresse().toUpperCase().trim().contains(s)){
                 medecins_filter.add(med);
             }
         }

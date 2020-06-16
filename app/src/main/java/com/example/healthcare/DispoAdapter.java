@@ -136,21 +136,23 @@ public class DispoAdapter extends RecyclerView.Adapter<DispoAdapter.DipsoViewHol
     private  void update_dispo(Disponibilite dispo){
         DocumentReference reference =  db.collection(getPath()).document(del_ref_doc);
 
-       reference.update(
-               "jour",dispo.getJour(),
-               "heure1", dispo.getHeure1(),
-               "heure2", dispo.getHeure2()
-       ).addOnSuccessListener(new OnSuccessListener<Void>() {
-           @Override
-           public void onSuccess(Void aVoid) {
-               Log.d(TAG,"Updated_dispo");
-           }
-       }).addOnFailureListener(new OnFailureListener() {
-           @Override
-           public void onFailure(@NonNull Exception e) {
-               Log.d(TAG,"failed_updating_dispo");
-           }
-       });
+       if(reference != null){
+            reference.update(
+                    "jour",dispo.getJour(),
+                    "heure1", dispo.getHeure1(),
+                    "heure2", dispo.getHeure2()
+            ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Log.d(TAG,"Updated_dispo");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG,"failed_updating_dispo");
+                }
+            });
+        }
     }
     @Override
     public void onBindViewHolder(@NonNull final DipsoViewHolder holder, int position) {
@@ -158,7 +160,13 @@ public class DispoAdapter extends RecyclerView.Adapter<DispoAdapter.DipsoViewHol
 
 
 
-        holder.heure_dispo.setText(dispo.getHeure1() + " et " + dispo.getHeure2());
+        if (!(dispo.getHeure1().equals("00h00-00h00") && dispo.getHeure2().equals("00h00-00h00")))
+            holder.heure_dispo.setText(dispo.getHeure1() + " et " + dispo.getHeure2());
+        else if (dispo.getHeure1().equals("00h00-00h00") && !dispo.getHeure2().equals("00h00-00h00") )
+            holder.heure_dispo.setText(dispo.getHeure2());
+        else if (dispo.getHeure2().equals("00h00-00h00") && !dispo.getHeure1().equals("00h00-00h00") )
+            holder.heure_dispo.setText(dispo.getHeure1());
+
         holder.jour_dispo.setText(dispo.getJour());
         holder.supprimer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,6 +194,7 @@ public class DispoAdapter extends RecyclerView.Adapter<DispoAdapter.DipsoViewHol
                         Log.d(TAG,"REF : " +path);
                         del_dispo(dispo);
                         dispos.remove(dispo);
+                        dialog.cancel();
                         notifyDataSetChanged();
 
                     }

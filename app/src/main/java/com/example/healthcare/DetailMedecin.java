@@ -100,6 +100,7 @@ public class DetailMedecin extends AppCompatActivity {
 
     }
     private  void  initPhotoProfile(String mail, final  CircleImageView photo_profile,String path){
+       /*
         stRef = storage.getReferenceFromUrl("gs://healthcare-1dab0.appspot.com").child(path+"/" + mail +".jpg");
         Log.d(TAG,"IMAGE_REF : " + stRef.toString());
         try {
@@ -120,5 +121,6 @@ public class DetailMedecin extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+        */
     }
 }

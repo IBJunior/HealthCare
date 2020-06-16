@@ -150,7 +150,8 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:layout_marginBottom="10dp"
-            android:layout_gravity="center">
+            android:layout_marginStart="45dp"
+            android:layout_gravity="left">
 
             <Spinner
                 android:id="@+id/specialite"

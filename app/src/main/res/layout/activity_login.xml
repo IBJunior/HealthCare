@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
@@ -89,10 +89,14 @@
             android:textSize="18sp"
             android:layout_marginBottom="15dp"
             android:text="@string/connect"/>
-
-
-
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/mdp"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:textSize="14sp"/>
     </LinearLayout>
 
 

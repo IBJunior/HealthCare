@@ -87,7 +87,7 @@ public class PatientListActi extends AppCompatActivity {
             }
         });
         photo_profile = findViewById(R.id.photo_profile);
-        initPhotoProfile();
+        //initPhotoProfile();
 
     }
 

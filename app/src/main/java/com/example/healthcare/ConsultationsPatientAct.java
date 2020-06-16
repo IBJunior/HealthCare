@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.login.LoginActivity;
 import com.example.model.Consultation;
+import com.example.model.Medecin;
 import com.example.model.Patient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -79,7 +80,7 @@ public class ConsultationsPatientAct extends AppCompatActivity {
 
             }
         });
-        initListConsultations();
+        initConsList();
 
         list_pat = findViewById(R.id.pat_consultations);
         list_pat.setHasFixedSize(true);
@@ -90,44 +91,55 @@ public class ConsultationsPatientAct extends AppCompatActivity {
 
     }
 
-
-    private  void initListConsultations(){
-
-        db.collection("patients").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+    private  void initConsList(){
+        db.collection("patients").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                Log.d(TAG,"SUCSS_List_pat");
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    Log.d(TAG,"LisT_Med");
+                    for (QueryDocumentSnapshot d: task.getResult()){
+                        Patient pat = d.toObject(Patient.class);
 
-                for (QueryDocumentSnapshot d: queryDocumentSnapshots){
-                    Patient pat = d.toObject(Patient.class);
-                    if(pat.getEmail().equals(mail_pat)){
-                        db.document(d.getReference().getPath()).collection("consultationsPat").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        int n = 0;
+                        if(pat.getEmail().equals(mail_pat) && n==0)
+                        {
 
-                                if(task.isSuccessful()){
-                                    for (QueryDocumentSnapshot d: task.getResult()){
-                                        Consultation c = d.toObject(Consultation.class);
-                                        cons.add(c);
-                                        adapter.notifyDataSetChanged();
+
+                                Log.d(TAG,"LisT_Med : " + mail_pat);
+                                db.collection("patients/"+d.getId() + "/consultationsPat").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                        Log.d(TAG,"CAN_LIST_CONS");
+                                        int n2 = 0;
+
+                                        if(n2==0)
+                                        for (QueryDocumentSnapshot d: queryDocumentSnapshots){
+                                            Consultation c = d.toObject(Consultation.class);
+                                            cons.add(c);
+                                            n2++;
+                                            adapter.notifyDataSetChanged();
+                                        }
                                     }
-                                }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG,"CANT_LIST_CONS : " + e.getMessage());
+                                    }
+                                });
+                            n++;
 
-                            }
-                        });
+                        }
                     }
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG,"Failed_List_pat");
+                else {
+                    Log.d(TAG,"PB_LIST_MED");
+                }
             }
         });
-        if (cons.isEmpty()){
-            Toast.makeText(ConsultationsPatientAct.this,"Vous n'avez pas de consultation pour l'instant", Toast.LENGTH_LONG).show();
-        }
 
+        if (cons.isEmpty()){
+            Toast.makeText(ConsultationsPatientAct.this, "Vous n'avez aucune consultation ",Toast.LENGTH_LONG).show();
+        }
     }
     private  void  initPhotoProfile(){
         stRef = storage.getReferenceFromUrl("gs://healthcare-1dab0.appspot.com").child("photos_profile_patient/" + mail_pat +".jpg");

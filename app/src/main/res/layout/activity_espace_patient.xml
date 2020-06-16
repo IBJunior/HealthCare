@@ -43,6 +43,7 @@
             <LinearLayout
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:padding="8dp"
                 android:background="@drawable/grid_bg"
                 android:layout_margin="12dp"
                 android:orientation="vertical"
@@ -51,7 +52,7 @@
                     android:id="@+id/nv_rdc"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
+
                     android:layout_marginBottom="10dp"
                     android:src="@drawable/newrdv"
                     android:layout_gravity="center"/>

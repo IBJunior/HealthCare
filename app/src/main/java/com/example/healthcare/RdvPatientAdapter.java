@@ -44,18 +44,12 @@ public class RdvPatientAdapter  extends RecyclerView.Adapter<RdvPatientAdapter.R
         holder.annul_rdv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mcontext,"RDV annulé", Toast.LENGTH_LONG).show();
+                Toast.makeText(mcontext,"Rende-vous annulé",Toast.LENGTH_LONG).show();
                 rdvPatients.remove(rdv);
                 notifyDataSetChanged();
             }
         });
 
-        holder.annul_rdv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG,"Rdv_annule");
-            }
-        });
 
 
     }

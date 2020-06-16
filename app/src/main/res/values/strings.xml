@@ -63,10 +63,11 @@
     <string name="acc">Accueil</string>
     <string name="prise_rdv">"Vous êtes entrain de <br/> prendre RDV avec : "</string>
     <string name="mes_rdv">Mes rendez-vous</string>
-    <string name="con">Consultation du :</string>
+    <string name="con">Consultation du </string>
     <string name="ch">choisir</string>
     <string name="mes_dispo">"Mes disponibilités "</string>
     <string name="pat_cons">Patients consultés</string>
+    <string name="mdp">Mot de passe oublié ?</string>
 
     <string-array name="situations">
 

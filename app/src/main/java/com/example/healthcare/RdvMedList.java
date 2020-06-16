@@ -77,7 +77,7 @@ public class RdvMedList extends AppCompatActivity {
             }
         });
         photo_profile = findViewById(R.id.photo_profile);
-        initPhotoProfile();
+        //initPhotoProfile();
         deconnect = findViewById(R.id.deconnexion);
         deconnect.setOnClickListener(new View.OnClickListener() {
             @Override

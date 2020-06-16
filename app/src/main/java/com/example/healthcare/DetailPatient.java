@@ -90,6 +90,7 @@ public class DetailPatient extends AppCompatActivity {
         situation.setText(patient.getSituation_familiale());
     }
     private  void  initPhotoProfile(String mail, final  CircleImageView photo_profile,String path){
+        /*
         stRef = storage.getReferenceFromUrl("gs://healthcare-1dab0.appspot.com").child(path +"/" + mail +".jpg");
         Log.d(TAG,"IMAGE_REF : " + stRef.toString());
         try {
@@ -110,5 +111,6 @@ public class DetailPatient extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+         */
     }
 }

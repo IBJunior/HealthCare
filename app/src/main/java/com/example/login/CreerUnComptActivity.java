@@ -48,7 +48,7 @@ import java.util.Date;
 
 public class CreerUnComptActivity extends AppCompatActivity {
     Spinner situations,specialites;
-    EditText passwd,naissance,nom,
+    EditText naissance,nom,
             prenom,ville,tel;
     String mail_str;
     String image_url;
